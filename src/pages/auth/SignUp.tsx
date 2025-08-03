@@ -30,12 +30,12 @@ const SignUp = () => {
                 "linear-gradient(to right, #db2777 0%, #db2777 80%, #f472b6 100%)",
             }}
           >
-            Login
+            Sign Up
           </button>
         </div>
 
         <p className="text-white">
-          already have an account?
+          already have an account?{" "}
           <Link className="font-bold" to={"/login"}>
             Sign Up
           </Link>
