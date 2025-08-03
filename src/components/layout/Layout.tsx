@@ -7,9 +7,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Navbar />
-      {children}
+      <div className="flex-1 overflow-auto bg-black">{children}</div>
     </div>
   );
 };

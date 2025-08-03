@@ -9,3 +9,11 @@
   --color-dark: #000000,
   --color-muted: #cfcfcf
 }
+
+.auth-input-styles {
+  @apply text-gray-300 w-full outline-none border border-slate-300 px-5 rounded-md py-2;
+}
+
+.auth-heading-styles{
+  @apply text-center text-white mb-10 text-2xl font-bold
+}
