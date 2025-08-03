@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   return (
     <div className=" flex items-center h-[100%]  justify-center">
-      <form>
+      <form className="w-[350px]">
         <h2 className="auth-heading-styles">Sign Up</h2>
 
         <div className="flex flex-col gap-5 items-center justify-center mb-4">
@@ -37,7 +37,7 @@ const SignUp = () => {
         <p className="text-white">
           already have an account?
           <Link className="font-bold" to={"/login"}>
-            Login
+            Sign Up
           </Link>
         </p>
       </form>
