@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import FormInput from "../../components/auth-form/FormInput";
 
 interface SignUpFormData {
   name: string;
@@ -44,67 +45,45 @@ const SignUp = () => {
         <h2 className="auth-heading-styles">Sign Up</h2>
 
         <div className="flex flex-col gap-5 items-center justify-center mb-4">
-          <div className="w-full">
-            <input
-              className="auth-input-styles"
-              placeholder="Name"
-              type="text"
-              name="name"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, name: e.target.value }))
-              }
-              value={form.name}
-            />
-            {errors.name && <p className="text-red-500">{errors.name}</p>}
-          </div>
-          <div className="w-full">
-            <input
-              className="auth-input-styles"
-              placeholder="E-mail"
-              type="text"
-              name="email"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, email: e.target.value }))
-              }
-              value={form.email}
-            />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
-          </div>
+          <FormInput
+            placeholder="Name"
+            name="name"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, name: e.target.value }))
+            }
+            value={form.name}
+            error={errors.name}
+          />
 
-          <div className="w-full">
-            <input
-              type="password"
-              className="auth-input-styles"
-              placeholder="Password"
-              name="password"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, password: e.target.value }))
-              }
-              value={form.password}
-            />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
-            )}
-          </div>
-          <div className="w-full">
-            <input
-              type="password"
-              className="auth-input-styles"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({
-                  ...prev,
-                  confirmPassword: e.target.value,
-                }))
-              }
-              value={form.confirmPassword}
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword}</p>
-            )}
-          </div>
-
+          <FormInput
+            placeholder="E-mail"
+            name="email"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, email: e.target.value }))
+            }
+            value={form.email}
+            error={errors.email}
+          />
+          <FormInput
+            placeholder="Password"
+            name="password"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, password: e.target.value }))
+            }
+            type="password"
+            value={form.password}
+            error={errors.password}
+          />
+          <FormInput
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, confirmPassword: e.target.value }))
+            }
+            type="password"
+            value={form.confirmPassword}
+            error={errors.confirmPassword}
+          />
           <button
             className="py-2 font-bold text-white rounded-md w-full cursor-pointer hover:shadow-pink-500/50 transition-shadow duration-300"
             style={{

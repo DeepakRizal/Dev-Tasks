@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import FormInput from "../../components/auth-form/FormInput";
 
 interface formState {
   email: string;
@@ -36,36 +37,25 @@ const Login = () => {
         <h2 className="auth-heading-styles">Login</h2>
 
         <div className="flex flex-col gap-5 items-center justify-center mb-4">
-          <div className="w-full">
-            <input
-              className="auth-input-styles"
-              placeholder="E-mail"
-              name="name"
-              type="text"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, email: e.target.value }))
-              }
-              value={form.email}
-            />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
-          </div>
-
-          <div className="w-full">
-            <input
-              type="password"
-              className="auth-input-styles"
-              placeholder="Password"
-              name="password"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, password: e.target.value }))
-              }
-              value={form.password}
-            />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
-            )}
-          </div>
-
+          <FormInput
+            placeholder="E-mail"
+            name="email"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, email: e.target.value }))
+            }
+            value={form.email}
+            error={errors.email}
+          />
+          <FormInput
+            placeholder="Password"
+            name="password"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setForm((prev) => ({ ...prev, password: e.target.value }))
+            }
+            type="password"
+            value={form.password}
+            error={errors.password}
+          />
           <button
             className="py-2 font-bold text-white rounded-md w-full cursor-pointer hover:shadow-pink-500/50 transition-shadow duration-300"
             style={{
