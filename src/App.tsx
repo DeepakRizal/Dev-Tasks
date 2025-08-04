@@ -3,6 +3,8 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -31,6 +33,17 @@ const App = () => {
           </Layout>
         }
       />
+
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/dashboard"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+      </Route>
     </Routes>
   );
 };
