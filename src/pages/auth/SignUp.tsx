@@ -1,16 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import FormInput from "../../components/auth-form/FormInput";
-
-interface SignUpFormData {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import AuthForm from "../../components/auth-form/AuthForm";
 
 const SignUp = () => {
-  const [form, setForm] = useState<SignUpFormData>({
+  const [form, setForm] = useState<Record<string, string>>({
     name: "",
     email: "",
     password: "",
@@ -18,7 +10,18 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  function validateErrors(data: SignUpFormData) {
+  const fields = [
+    { name: "email", placeholder: "E-mail", type: "text" },
+    { name: "name", placeholder: "Name", type: "text" },
+    { name: "password", placeholder: "Password", type: "password" },
+    {
+      name: "confirmPassword",
+      placeholder: "Confirm password",
+      type: "password",
+    },
+  ];
+
+  function validateErrors(data: Record<string, string>) {
     const newErrors: Record<string, string> = {};
 
     if (!data.name.trim()) newErrors.name = "Name is required!";
@@ -38,71 +41,25 @@ const SignUp = () => {
       return;
     }
   }
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
 
   return (
-    <div className=" flex items-center h-[100%]  justify-center">
-      <form onSubmit={handleSubmit} className="w-[350px]">
-        <h2 className="auth-heading-styles">Sign Up</h2>
-
-        <div className="flex flex-col gap-5 items-center justify-center mb-4">
-          <FormInput
-            placeholder="Name"
-            name="name"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setForm((prev) => ({ ...prev, name: e.target.value }))
-            }
-            value={form.name}
-            error={errors.name}
-          />
-
-          <FormInput
-            placeholder="E-mail"
-            name="email"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setForm((prev) => ({ ...prev, email: e.target.value }))
-            }
-            value={form.email}
-            error={errors.email}
-          />
-          <FormInput
-            placeholder="Password"
-            name="password"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setForm((prev) => ({ ...prev, password: e.target.value }))
-            }
-            type="password"
-            value={form.password}
-            error={errors.password}
-          />
-          <FormInput
-            placeholder="Confirm Password"
-            name="confirmPassword"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setForm((prev) => ({ ...prev, confirmPassword: e.target.value }))
-            }
-            type="password"
-            value={form.confirmPassword}
-            error={errors.confirmPassword}
-          />
-          <button
-            className="py-2 font-bold text-white rounded-md w-full cursor-pointer hover:shadow-pink-500/50 transition-shadow duration-300"
-            style={{
-              background:
-                "linear-gradient(to right, #db2777 0%, #db2777 80%, #f472b6 100%)",
-            }}
-          >
-            Sign Up
-          </button>
-        </div>
-
-        <p className="text-white">
-          already have an account?{" "}
-          <Link className="font-bold" to={"/login"}>
-            Sign Up
-          </Link>
-        </p>
-      </form>
-    </div>
+    <AuthForm
+      form={form}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
+      errors={errors}
+      headingText="Sign Up"
+      footerText="Already have an account?"
+      footer={{
+        label: "Login",
+        to: "/login",
+      }}
+      buttonText="Sign up"
+      fields={fields}
+    />
   );
 };
 
