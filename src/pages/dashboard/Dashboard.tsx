@@ -1,21 +1,20 @@
-const Dashboard = () => {
-  // Mock data - replace with your Redux state
-  const user = {
-    name: "xyz",
-    role: "Admin",
-  };
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
-  const teams = [
-    { id: 1, name: "Dev Warriors", emoji: "🧑‍💻" },
-    { id: 2, name: "Code Crafters", emoji: "🧑‍💻" },
-  ];
+const Dashboard = () => {
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+  const teams = useSelector((state: RootState) => state.team.teams);
+
+  const myTeams = teams.filter((team) =>
+    team.members.includes(currentUser?.id || "")
+  );
 
   return (
     <div className="min-h-screen  bg-black text-white p-6">
       <div className="max-w-4xl mx-auto">
         <div className="border-b border-slate-700 pb-4 mb-6">
           <h1 className="text-2xl font-bold text-white">
-            Welcome, {user.name} ({user.role})
+            Welcome, {currentUser?.name} ({currentUser?.role})
           </h1>
         </div>
         <div className="mb-8">
@@ -23,7 +22,7 @@ const Dashboard = () => {
             Your Teams
           </h2>
           <div className="space-y-3">
-            {teams.map((team) => (
+            {myTeams.map((team) => (
               <div
                 key={team.id}
                 className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 hover:bg-gray-800 transition-colors"
