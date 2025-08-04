@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
+import { useState } from "react";
+import AddTeamModal from "../../components/modals/AddTeamModal";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const teams = useSelector((state: RootState) => state.team.teams);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleClick() {
+    setIsOpen(!isOpen);
+  }
 
   const myTeams = teams.filter((team) =>
     team.members.includes(currentUser?.id || "")
@@ -25,7 +32,7 @@ const Dashboard = () => {
             {myTeams.map((team) => (
               <div
                 key={team.id}
-                className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 hover:bg-gray-800 transition-colors cursor-pointer"
               >
                 <div className="flex items-center space-x-3">
                   <span className="text-xl">{team.emoji}</span>
@@ -42,12 +49,16 @@ const Dashboard = () => {
         </div>
 
         <div className="border-t border-slate-700 pt-10">
-          <button className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-4 px-6 rounded-lg border border-slate-700 border-dashed transition-colors flex items-center justify-center space-x-2">
+          <button
+            onClick={handleClick}
+            className="w-full cursor-pointer bg-gray-900 hover:bg-gray-800 text-white font-medium py-4 px-6 rounded-lg border border-slate-700 border-dashed transition-colors flex items-center justify-center space-x-2"
+          >
             <span className="text-xl">+</span>
             <span>Create New Team</span>
           </button>
         </div>
       </div>
+      {isOpen && <AddTeamModal isOpen={isOpen} />}
     </div>
   );
 };
