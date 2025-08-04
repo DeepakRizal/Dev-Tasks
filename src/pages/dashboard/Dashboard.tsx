@@ -58,7 +58,7 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
-      {isOpen && <AddTeamModal isOpen={isOpen} />}
+      {isOpen && <AddTeamModal isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   );
 };
