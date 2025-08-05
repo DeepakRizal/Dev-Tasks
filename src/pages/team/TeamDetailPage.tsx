@@ -2,18 +2,26 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import type { RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import AddProjectModal from "../../components/modals/AddProjectModal";
 
 const TeamDetailPage = () => {
   const teams = useSelector((state: RootState) => state.team.teams);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const { teamId } = useParams();
+  const [isOpen, setIsOpen] = useState(false);
 
   const team = teams.find((team) => team.id === teamId);
+
+  function handleClick() {
+    setIsOpen(!isOpen);
+  }
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-6">
+        <div className="flex items-center justify-between mb-6">
           <Link
             to={"/dashboard"}
             className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
@@ -21,6 +29,14 @@ const TeamDetailPage = () => {
             <span>←</span>
             <span>Back to Dashboard</span>
           </Link>
+
+          <button
+            onClick={handleClick}
+            className="text-white bg-green-500 rounded-md px-5 py-2 flex gap-5 cursor-pointer"
+          >
+            <Plus />
+            <span>Create Project</span>
+          </button>
         </div>
 
         <div className="bg-gray-900 border border-slate-700 rounded-lg p-6 mb-6">
@@ -109,12 +125,16 @@ const TeamDetailPage = () => {
         </div>
 
         <div className="bg-gray-900 border border-slate-700 rounded-lg p-6">
-          <button className="w-full cursor-pointer bg-gray-800 hover:bg-gray-700 text-white font-medium py-4 px-6 rounded-lg border border-slate-600 border-dashed transition-colors flex items-center justify-center space-x-2">
+          <button
+            onClick={handleClick}
+            className="w-full cursor-pointer bg-gray-800 hover:bg-gray-700 text-white font-medium py-4 px-6 rounded-lg border border-slate-600 border-dashed transition-colors flex items-center justify-center space-x-2"
+          >
             <span className="text-xl">+</span>
             <span>Create New Project</span>
           </button>
         </div>
       </div>
+      {isOpen && <AddProjectModal isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   );
 };
