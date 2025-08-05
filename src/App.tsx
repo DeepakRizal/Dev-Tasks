@@ -5,6 +5,7 @@ import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Dashboard from "./pages/dashboard/Dashboard";
+import TeamDetailPage from "./pages/team/TeamDetailPage";
 
 const App = () => {
   return (
@@ -40,6 +41,14 @@ const App = () => {
           element={
             <Layout>
               <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/teams/:teamId"
+          element={
+            <Layout>
+              <TeamDetailPage />
             </Layout>
           }
         />
