@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { useState } from "react";
 import AddTeamModal from "../../components/modals/AddTeamModal";
-import { useNavigate } from "react-router-dom";
+import TeamCard from "../../components/teams/TeamCard";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const teams = useSelector((state: RootState) => state.team.teams);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
   function handleClick() {
     setIsOpen(!isOpen);
@@ -32,21 +31,7 @@ const Dashboard = () => {
           </h2>
           <div className="space-y-3">
             {myTeams.map((team) => (
-              <div
-                onClick={() => navigate(`/teams/${team.id}`)}
-                key={team.id}
-                className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 hover:bg-gray-800 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center space-x-3">
-                  <span className="text-xl">{team.emoji}</span>
-                  <span className="text-white font-medium">{team.name}</span>
-                </div>
-
-                <button className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md border border-slate-600 transition-colors">
-                  <span>📁</span>
-                  <span>View Projects</span>
-                </button>
-              </div>
+              <TeamCard team={team} key={team.id} />
             ))}
           </div>
         </div>
