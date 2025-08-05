@@ -7,21 +7,48 @@ interface TeamState {
 
 const initialState: TeamState = {
   teams: [
-    {
-      id: "1",
-      name: "Dev Warriors",
-      emoji: "🧑‍💻",
-      members: ["123"], // user id
-      projects: [],
-    },
-    {
-      id: "2",
-      name: "Code Crafters",
-      emoji: "🧑‍💻",
-      members: ["123"],
-      projects: [],
-    },
-  ],
+  {
+    id: "1",
+    name: "Dev Warriors",
+    emoji: "🧑‍💻",
+    members: ["123"],
+    projects: [
+      {
+        id: "1",
+        name: "DevForge Clone",
+        emoji: "🔧",
+        description: "A comprehensive development platform clone",
+      },
+      {
+        id: "2",
+        name: "Portfolio Redesign",
+        emoji: "🌐",
+        description: "Modern portfolio website redesign",
+      },
+    ],
+  },
+  {
+    id: "2",
+    name: "Code Crafters",
+    emoji: "🧑‍💻",
+    members: ["123"],
+    projects: [
+      {
+        id: "3",
+        name: "CodeBuddy",
+        emoji: "🤖",
+        description: "An AI pair programming assistant",
+      },
+      {
+        id: "4",
+        name: "UI Toolkit",
+        emoji: "🧰",
+        description: "Reusable components for design systems",
+      },
+    ],
+  },
+]
+
 };
 
 const teamSlice = createSlice({
