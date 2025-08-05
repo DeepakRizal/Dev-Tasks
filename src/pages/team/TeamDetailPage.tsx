@@ -14,6 +14,22 @@ const TeamDetailPage = () => {
 
   const team = teams.find((team) => team.id === teamId);
 
+  if (!team) {
+    return (
+      <div className="min-h-screen bg-black text-white p-6">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-2xl font-bold">Team not found.</h2>
+          <Link
+            to="/dashboard"
+            className="text-green-500 underline mt-4 inline-block"
+          >
+            Go back to Dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   function handleClick() {
     setIsOpen(!isOpen);
   }
@@ -134,7 +150,13 @@ const TeamDetailPage = () => {
           </button>
         </div>
       </div>
-      {isOpen && <AddProjectModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <AddProjectModal
+          teamId={team?.id}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </div>
   );
 };

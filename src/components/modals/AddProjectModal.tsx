@@ -1,10 +1,44 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { v4 as uuid4 } from "uuid";
+import type { AppDispatch } from "../../store/store";
+import { addProjectToTeam } from "../../store/features/teams/teamSlice";
+
 interface AddProjectModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  teamId: string;
 }
 
-const AddProjectModal = ({ isOpen, setIsOpen }: AddProjectModalProps) => {
-  function handleSubmit() {}
+const AddProjectModal = ({
+  isOpen,
+  setIsOpen,
+  teamId,
+}: AddProjectModalProps) => {
+  const [form, setForm] = useState({
+    name: "",
+    emoji: "",
+    description: "",
+  });
+  const dispatch = useDispatch<AppDispatch>();
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const newProject = {
+      id: uuid4(),
+      name: form.name,
+      emoji: form.emoji ? form.emoji : "🧑‍💻",
+      description: form.description,
+    };
+    dispatch(addProjectToTeam({ teamId, project: newProject }));
+    setForm({
+      name: "",
+      emoji: "",
+      description: "",
+    });
+    setIsOpen(false);
+  }
 
   function handleCancel() {
     setIsOpen(false);
@@ -28,22 +62,39 @@ const AddProjectModal = ({ isOpen, setIsOpen }: AddProjectModalProps) => {
                   name="name"
                   className="text-gray-400 outline-none border border-gray-300 rounded-md px-2 py-1 w-full"
                   placeholder="Team Name"
-                  //   value={}
-                  //   onChange={}
+                  value={form.name}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
                 />
                 <input
                   type="text"
                   name="emoji"
                   className="text-gray-400 outline-none border border-gray-300 rounded-md px-2 py-1 w-full"
                   placeholder="Emoji (optional)"
-                  //   value={}
+                  value={form.emoji}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
                 />
                 <input
                   type="text"
                   name="description"
                   className="text-gray-400 outline-none border border-gray-300 rounded-md px-2 py-1 w-full"
                   placeholder="Description"
-                  //   value={}
+                  value={form.description}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      [e.target.name]: e.target.value,
+                    }))
+                  }
                 />
                 <div className="flex gap-10 mt-7 justify-end ">
                   <button
