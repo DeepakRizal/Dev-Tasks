@@ -30,7 +30,7 @@ export function validateProject(data: Record<string, string>) {
 
 export function validateTeam(data: Record<string, string>) {
   const errors: Record<string, string> = {};
-  if (!data.name.trim()) errors.name = "Project name is required!";
+  if (!data.name.trim()) errors.name = "Team name is required!";
 
   return errors;
 }
