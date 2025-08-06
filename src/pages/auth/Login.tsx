@@ -3,14 +3,14 @@ import { useForm } from "../../hooks/useForm";
 import { validateLogin } from "../../utils/validators";
 
 const Login = () => {
-  const { form, handleChange, handleSubmit, errors } = useForm(
-    {
+  const { form, handleChange, handleSubmit, errors } = useForm({
+    initialValues: {
       email: "",
       password: "",
     },
-    validateLogin,
-    () => {}
-  );
+    validate: validateLogin,
+    onSubmit: () => {},
+  });
 
   const fields = [
     { name: "email", placeholder: "E-mail", type: "text" },

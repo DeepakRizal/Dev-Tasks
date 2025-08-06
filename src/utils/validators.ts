@@ -18,3 +18,19 @@ export function validateSignUp(data: Record<string, string>) {
 
   return newErrores;
 }
+
+export function validateProject(data: Record<string, string>) {
+  const errors: Record<string, string> = {};
+  if (!data.name.trim()) errors.name = "Project name is required!";
+  if (!data.description.trim())
+    errors.description = "Project Description is required!";
+
+  return errors;
+}
+
+export function validateTeam(data: Record<string, string>) {
+  const errors: Record<string, string> = {};
+  if (!data.name.trim()) errors.name = "Project name is required!";
+
+  return errors;
+}

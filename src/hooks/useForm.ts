@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-type validateFn = (value: Record<string, string>) => Record<string, string>;
+type ValidateFn = (value: Record<string, string>) => Record<string, string>;
 
-export function useForm(
-  initialValues: Record<string, string>,
-  validate: validateFn,
-  onSubmit: () => void
-) {
+interface UseFormProps {
+  initialValues: Record<string, string>;
+  validate: ValidateFn;
+  onSubmit: () => void;
+  onClose?: (value: boolean) => void;
+}
+
+export function useForm({
+  initialValues,
+  validate,
+  onSubmit,
+  onClose,
+}: UseFormProps) {
   const [form, setForm] = useState(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -19,19 +27,23 @@ export function useForm(
 
     const validationErrors = validate(form);
 
-    if (Object.keys(validationErrors).length > 1) {
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     onSubmit();
     setForm(initialValues);
     setErrors({});
+    if (onClose) onClose(false);
   }
 
   return {
     form,
+    errors,
     handleChange,
     handleSubmit,
-    errors,
+    setForm,
+    setErrors,
   };
 }
