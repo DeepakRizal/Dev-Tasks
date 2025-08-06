@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import type { Column } from "../../types/team";
+import type { Board, Column } from "../../types/team";
 import ColumnCard from "../../components/project/ColumnCard";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 // Types
 interface Task {
   id: string;
   title: string;
   description?: string;
-}
-
-interface Project {
-  id: string;
-  name: string;
-  emoji: string;
-  description: string;
-  status: string;
-  owner: string;
 }
 
 type ColumnKey = "todo" | "inProgress" | "completed";
@@ -28,84 +21,20 @@ type Columns = {
 };
 
 const ProjectBoard: React.FC = () => {
-  const { teamId } = useParams<{ teamId: string }>();
+  const { teamId, projectId } = useParams<{
+    teamId: string;
+    projectId: string;
+  }>();
 
-  // Mock project data
-  const project: Project = {
-    id: "1",
-    name: "DevForge Clone",
-    emoji: "🛠️",
-    description: "A comprehensive development platform clone",
-    status: "Active",
-    owner: "John Doe",
-  };
+  const teams = useSelector((state: RootState) => state.team.teams);
+
+  const team = teams.find((team) => team.id === teamId);
+
+  const project = team?.projects.find((project) => project.id === projectId);
+  const data = project?.board as Board;
 
   // Fixed columns state
-  const [columns, setColumns] = useState<Columns>({
-    todo: {
-      id: "todo",
-      title: "To Do",
-      emoji: "📝",
-      tasks: [
-        {
-          id: "1",
-          title: "Design login screen",
-          description: "Create wireframes and mockups for the login interface",
-        },
-        {
-          id: "2",
-          title: "Create wireframes",
-          description: "Design system wireframes for all main components",
-        },
-        {
-          id: "3",
-          title: "Create DB schema",
-          description:
-            "Design database schema for user management and projects",
-        },
-      ],
-    },
-    inProgress: {
-      id: "inProgress",
-      title: "In Progress",
-      emoji: "🔄",
-      tasks: [
-        {
-          id: "4",
-          title: "API integration",
-          description:
-            "Integrate REST APIs for user authentication and project management",
-        },
-        {
-          id: "5",
-          title: "Fix auth bug",
-          description: "Resolve authentication token refresh issue",
-        },
-      ],
-    },
-    completed: {
-      id: "completed",
-      title: "Completed",
-      emoji: "✅",
-      tasks: [
-        {
-          id: "6",
-          title: "Landing page deployed",
-          description: "Successfully deployed the main landing page",
-        },
-        {
-          id: "7",
-          title: "Setup repo & CI/CD",
-          description: "Configured GitHub repository with automated deployment",
-        },
-        {
-          id: "8",
-          title: "Project created",
-          description: "Initial project setup and configuration",
-        },
-      ],
-    },
-  });
+  const [columns, setColumns] = useState<Columns>(data);
 
   const [activeInput, setActiveInput] = useState<ColumnKey | null>(null);
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -148,10 +77,10 @@ const ProjectBoard: React.FC = () => {
         <div className="bg-gray-900 border border-slate-700 rounded-lg p-4 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <span className="text-2xl">{project.emoji}</span>
+              <span className="text-2xl">{project?.emoji}</span>
               <div>
-                <h1 className="text-xl font-bold">{project.name}</h1>
-                <p className="text-gray-400 text-sm">{project.description}</p>
+                <h1 className="text-xl font-bold">{project?.name}</h1>
+                <p className="text-gray-400 text-sm">{project?.description}</p>
               </div>
             </div>
             <div className="flex items-center space-x-6 text-sm">
@@ -159,17 +88,17 @@ const ProjectBoard: React.FC = () => {
                 <span className="text-gray-400">Status:</span>
                 <span
                   className={`px-2 py-1 rounded text-xs ${
-                    project.status === "Active"
+                    project?.status === "Active"
                       ? "bg-green-900 text-green-300"
                       : "bg-gray-700 text-gray-300"
                   }`}
                 >
-                  {project.status}
+                  {project?.status}
                 </span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-gray-400">Owner:</span>
-                <span className="text-white">{project.owner}</span>
+                <span className="text-white">{project?.owner}</span>
               </div>
             </div>
           </div>
