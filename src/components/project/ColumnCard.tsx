@@ -1,0 +1,101 @@
+import { Plus } from "lucide-react";
+import type { Column } from "../../types/team";
+
+interface ColumnCardProps {
+  column: Column;
+  isActive: boolean;
+  newTaskTitle: string;
+  setNewTaskTitle: (value: string) => void;
+  setActiveInput: (value: "todo" | "inProgress" | "completed" | null) => void;
+  addTask: (columnId: "todo" | "inProgress" | "completed") => void;
+}
+
+const ColumnCard = ({
+  column,
+  isActive,
+  newTaskTitle,
+  setNewTaskTitle,
+  setActiveInput,
+  addTask,
+}: ColumnCardProps) => {
+  return (
+    <div className="bg-gray-900 border border-slate-700 rounded-lg p-4">
+      {/* Column Header */}
+      <div className="flex items-center space-x-2 mb-4 pb-3 border-b border-slate-700">
+        <span className="text-lg">{column.emoji}</span>
+        <h3 className="text-lg font-semibold text-white">{column.title}</h3>
+        <span className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+          {column.tasks.length}
+        </span>
+      </div>
+
+      {/* Tasks */}
+      <div className="space-y-3">
+        {column.tasks.map((task) => (
+          <div
+            key={task.id}
+            className="bg-gray-800 border border-slate-600 rounded-lg p-3 hover:bg-gray-750 transition-colors cursor-pointer"
+          >
+            <div className="flex items-start space-x-2 mb-2">
+              <span className="text-blue-400 text-sm">🔹</span>
+              <h4 className="text-white font-medium text-sm flex-1">
+                {task.title}
+              </h4>
+            </div>
+            {task.description && (
+              <p className="text-gray-400 text-xs ml-5">{task.description}</p>
+            )}
+          </div>
+        ))}
+
+        {/* Add Task */}
+        {isActive ? (
+          <div className="bg-gray-800 border border-slate-600 rounded-lg p-3">
+            <input
+              type="text"
+              value={newTaskTitle}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
+              placeholder="Enter task title..."
+              className="w-full bg-transparent text-white text-sm outline-none mb-2"
+              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === "Enter") addTask(column.id);
+                else if (e.key === "Escape") {
+                  setActiveInput(null);
+                  setNewTaskTitle("");
+                }
+              }}
+            />
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => addTask(column.id)}
+                className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition-colors"
+              >
+                Add
+              </button>
+              <button
+                onClick={() => {
+                  setActiveInput(null);
+                  setNewTaskTitle("");
+                }}
+                className="bg-gray-600 hover:bg-gray-700 text-white text-xs px-3 py-1 rounded transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            onClick={() => setActiveInput(column.id)}
+            className="w-full bg-gray-800 hover:bg-gray-700 border border-slate-600 border-dashed rounded-lg p-3 text-gray-400 hover:text-white transition-colors flex items-center justify-center space-x-2"
+          >
+            <Plus size={16} />
+            <span className="text-sm">Add Task</span>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ColumnCard;
