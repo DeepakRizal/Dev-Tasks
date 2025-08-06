@@ -135,6 +135,7 @@ const TeamDetailPage = () => {
                 project={project}
                 currentUser={currentUser}
                 key={project.id}
+                projectId={project.id}
               />
             ))}
           </div>

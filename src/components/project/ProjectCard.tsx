@@ -1,12 +1,15 @@
+import { Link, useParams } from "react-router-dom";
 import type { User } from "../../types/auth";
 import type { Project } from "../../types/team";
 
 interface ProjectProps {
   project: Project;
   currentUser: User | null;
+  projectId: string;
 }
 
-const ProjectCard = ({ project, currentUser }: ProjectProps) => {
+const ProjectCard = ({ project, currentUser, projectId }: ProjectProps) => {
+  const { teamId } = useParams();
   return (
     <div
       key={project.id}
@@ -20,10 +23,13 @@ const ProjectCard = ({ project, currentUser }: ProjectProps) => {
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm transition-colors">
+        <Link
+          to={`/teams/${teamId}/project/${projectId}`}
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm transition-colors"
+        >
           <span>📂</span>
           <span>View Board</span>
-        </button>
+        </Link>
         {currentUser?.role === "admin" && (
           <>
             <button className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded text-sm transition-colors">
