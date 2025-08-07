@@ -5,45 +5,35 @@ export interface Project {
   description: string;
   status: string;
   owner: string;
+  teamId: string;
+  boardId: string;
 }
-interface Task {
+
+export interface Task {
   id: string;
   title: string;
-  description?: string;
-  assignee?: string;
-  dueDate?: string;
+  description: string;
+  columnId: string;
 }
-export interface Column {
-  id: "todo" | "inProgress" | "completed";
-  title: string;
-  emoji: string;
-  tasks: Task[];
-}
+
 export interface Team {
   id: string;
   name: string;
   emoji?: string;
-  projects: Project[];
   members: string[];
+  projectIds: string[];
 }
 
 export interface Column {
-  id: "todo" | "inProgress" | "completed";
+  id: string;
+  boardId: string;
   title: string;
   emoji: string;
-  tasks: Task[];
+  taskIds: string[]; // <- required
 }
 
 export interface Board {
-  todo: Column;
-  inProgress: Column;
-  completed: Column;
-}
-
-export interface Project {
   id: string;
-  name: string;
-  emoji: string;
-  description: string;
-  board: Board;
+  projectId: string;
+  columnIds: string[];
 }
