@@ -1,5 +1,7 @@
 import { Plus } from "lucide-react";
 import type { Column } from "../../types/team";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 interface ColumnCardProps {
   column: Column;
@@ -18,6 +20,8 @@ const ColumnCard = ({
   setActiveInput,
   addTask,
 }: ColumnCardProps) => {
+  const { columns, tasks } = useSelector((state: RootState) => state.task);
+
   return (
     <div className="bg-gray-900 border border-slate-700 rounded-lg p-4">
       {/* Column Header */}

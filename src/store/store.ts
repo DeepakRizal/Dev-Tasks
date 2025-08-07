@@ -3,6 +3,7 @@ import authReducer from "./features/auth/authSlice";
 import teamReducer from "./features/teams/teamSlice";
 import projectReducer from "./features/project/projectSlice";
 import boardReducer from "./features/board/boardSlice";
+import taskReducer from "./features/tasks/taskSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     team: teamReducer,
     project: projectReducer,
     board: boardReducer,
+    task: taskReducer,
   },
 });
 

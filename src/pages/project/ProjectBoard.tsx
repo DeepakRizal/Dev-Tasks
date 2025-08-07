@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import type { Board, Column } from "../../types/team";
+import type { Column } from "../../types/team";
 import ColumnCard from "../../components/project/ColumnCard";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
@@ -26,15 +26,13 @@ const ProjectBoard: React.FC = () => {
     projectId: string;
   }>();
 
-  const teams = useSelector((state: RootState) => state.team.teams);
+  const projects = useSelector((state: RootState) => state.project.projects);
+  const board = useSelector((state: RootState) => state.board.boards);
 
-  const team = teams.find((team) => team.id === teamId);
-
-  const project = team?.projects.find((project) => project.id === projectId);
-  const data = project?.board as Board;
+  const project = projects.find((project) => project.id === projectId);
 
   // Fixed columns state
-  const [columns, setColumns] = useState<Columns>(data);
+  const [columns, setColumns] = useState<Columns>(board);
 
   const [activeInput, setActiveInput] = useState<ColumnKey | null>(null);
   const [newTaskTitle, setNewTaskTitle] = useState("");

@@ -7,6 +7,7 @@ import { useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 
 const TeamDetailPage = () => {
+  const projects = useSelector((state: RootState) => state.project.projects);
   const teams = useSelector((state: RootState) => state.team.teams);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const { teamId } = useParams();
@@ -130,7 +131,7 @@ const TeamDetailPage = () => {
             <span>Projects:</span>
           </h2>
           <div className="space-y-3">
-            {team?.projects.map((project) => (
+            {projects.map((project) => (
               <ProjectCard
                 project={project}
                 currentUser={currentUser}
