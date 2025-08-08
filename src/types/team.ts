@@ -37,3 +37,5 @@ export interface Board {
   projectId: string;
   columnIds: string[];
 }
+
+export type ColumnKey = "todo" | "inProgress" | "completed";

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Column, Task } from "../../../types/team";
 
 interface TaskState {
@@ -75,7 +75,94 @@ const initialState: TaskState = {
 const taskSlice = createSlice({
   name: "task",
   initialState,
-  reducers: {},
+  reducers: {
+    addTask(state, action: PayloadAction<{ task: Task; columnId: string }>) {
+      const { task, columnId } = action.payload;
+      state.tasks.push(task);
+
+      // Update the column's taskIds
+      const column = state.columns.find((col) => col.id === columnId);
+      if (column) {
+        column.taskIds.push(task.id);
+      }
+    },
+    updateTask(
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<Task> }>
+    ) {
+      const { id, updates } = action.payload;
+      const task = state.tasks.find((t) => t.id === id);
+      if (task) {
+        Object.assign(task, updates);
+      }
+    },
+    deleteTask(state, action: PayloadAction<string>) {
+      const taskId = action.payload;
+      state.tasks = state.tasks.filter((task) => task.id !== taskId);
+
+      // Remove taskId from all columns
+      state.columns.forEach((column) => {
+        column.taskIds = column.taskIds.filter((id) => id !== taskId);
+      });
+    },
+    moveTask(
+      state,
+      action: PayloadAction<{
+        taskId: string;
+        fromColumnId: string;
+        toColumnId: string;
+      }>
+    ) {
+      const { taskId, fromColumnId, toColumnId } = action.payload;
+
+      // Update task's columnId
+      const task = state.tasks.find((t) => t.id === taskId);
+      if (task) {
+        task.columnId = toColumnId;
+      }
+
+      // Update column taskIds
+      const fromColumn = state.columns.find((col) => col.id === fromColumnId);
+      const toColumn = state.columns.find((col) => col.id === toColumnId);
+
+      if (fromColumn) {
+        fromColumn.taskIds = fromColumn.taskIds.filter((id) => id !== taskId);
+      }
+      if (toColumn) {
+        toColumn.taskIds.push(taskId);
+      }
+    },
+    addColumn(state, action: PayloadAction<Column>) {
+      state.columns.push(action.payload);
+    },
+    updateColumn(
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<Column> }>
+    ) {
+      const { id, updates } = action.payload;
+      const column = state.columns.find((col) => col.id === id);
+      if (column) {
+        Object.assign(column, updates);
+      }
+    },
+    deleteColumn(state, action: PayloadAction<string>) {
+      const columnId = action.payload;
+      state.columns = state.columns.filter((col) => col.id !== columnId);
+
+      // Remove tasks that belong to this column
+      state.tasks = state.tasks.filter((task) => task.columnId !== columnId);
+    },
+  },
 });
+
+export const {
+  addTask,
+  updateTask,
+  deleteTask,
+  moveTask,
+  addColumn,
+  updateColumn,
+  deleteColumn,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

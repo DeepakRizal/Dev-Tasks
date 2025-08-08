@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import type { Column } from "../../types/team";
+import type { ColumnKey, Task } from "../../types/team";
 import ColumnCard from "../../components/project/ColumnCard";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../store/store";
+import { addTask } from "../../store/features/tasks/taskSlice";
 
 // Types
-interface Task {
+
+// Interface for board display columns that includes tasks
+interface BoardColumn {
   id: string;
   title: string;
-  description?: string;
+  emoji: string;
+  tasks: Task[];
 }
 
-type ColumnKey = "todo" | "inProgress" | "completed";
-
 type Columns = {
-  todo: Column;
-  inProgress: Column;
-  completed: Column;
+  todo: BoardColumn;
+  inProgress: BoardColumn;
+  completed: BoardColumn;
 };
 
 const ProjectBoard: React.FC = () => {
@@ -26,36 +28,97 @@ const ProjectBoard: React.FC = () => {
     projectId: string;
   }>();
 
+  const dispatch = useDispatch<AppDispatch>();
   const projects = useSelector((state: RootState) => state.project.projects);
-  const board = useSelector((state: RootState) => state.board.boards);
+  const boards = useSelector((state: RootState) => state.board.boards);
+  const tasks = useSelector((state: RootState) => state.task.tasks);
+  const columns = useSelector((state: RootState) => state.task.columns);
 
   const project = projects.find((project) => project.id === projectId);
+  const board = boards.find((board) => board.projectId === projectId);
 
-  // Fixed columns state
-  const [columns, setColumns] = useState<Columns>(board);
+  // Get columns for this specific board
+  const boardColumns = columns.filter((col) => col.boardId === board?.id);
+
+  console.log(boardColumns);
+
+  // Create columns data structure for the board
+  const boardColumnsData: Columns = {
+    todo: {
+      id: "todo",
+      title: "To Do",
+      emoji: "📝",
+      tasks: tasks.filter((task) => {
+        const column = boardColumns.find((col) => col.id === task.columnId);
+        return column && column.title === "To Do";
+      }),
+    },
+    inProgress: {
+      id: "inProgress",
+      title: "In Progress",
+      emoji: "🔄",
+      tasks: tasks.filter((task) => {
+        const column = boardColumns.find((col) => col.id === task.columnId);
+        return column && column.title === "In Progress";
+      }),
+    },
+    completed: {
+      id: "completed",
+      title: "Completed",
+      emoji: "✅",
+      tasks: tasks.filter((task) => {
+        const column = boardColumns.find((col) => col.id === task.columnId);
+        return column && column.title === "Completed";
+      }),
+    },
+  };
 
   const [activeInput, setActiveInput] = useState<ColumnKey | null>(null);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  const addTask = (columnId: ColumnKey) => {
-    if (!newTaskTitle.trim()) return;
+  const addTaskHandler = (columnKey: ColumnKey) => {
+    if (!newTaskTitle.trim() || !board) return;
+
+    // Find the column ID for this board and column type
+    const column = boardColumns.find((col) => {
+      const isCorrectBoard = col.boardId === board.id;
+      const isCorrectType =
+        (columnKey === "todo" && col.title === "To Do") ||
+        (columnKey === "inProgress" && col.title === "In Progress") ||
+        (columnKey === "completed" && col.title === "Completed");
+      return isCorrectBoard && isCorrectType;
+    });
+
+    if (!column) return;
 
     const newTask: Task = {
       id: Date.now().toString(),
       title: newTaskTitle.trim(),
+      description: "",
+      columnId: column.id,
     };
 
-    setColumns((prev) => ({
-      ...prev,
-      [columnId]: {
-        ...prev[columnId],
-        tasks: [...prev[columnId].tasks, newTask],
-      },
-    }));
+    dispatch(addTask({ task: newTask, columnId: column.id }));
 
     setNewTaskTitle("");
     setActiveInput(null);
   };
+
+  if (!project) {
+    return (
+      <div className="min-h-screen bg-black text-white p-6">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-2xl font-bold">Project not found.</h2>
+          <Link
+            to={`/teams/${teamId}`}
+            className="text-green-500 underline mt-4 inline-block"
+          >
+            Go back to Team Detail Page
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
@@ -67,7 +130,7 @@ const ProjectBoard: React.FC = () => {
             className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
           >
             <span>←</span>
-            <span>Back to Team Detail Page</span>
+            <span>Back to Team Detail Page.</span>
           </Link>
         </div>
 
@@ -104,15 +167,15 @@ const ProjectBoard: React.FC = () => {
 
         {/* Board */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(Object.keys(columns) as ColumnKey[]).map((key) => (
+          {(Object.keys(boardColumnsData) as ColumnKey[]).map((key) => (
             <ColumnCard
               key={key}
-              column={columns[key]}
+              column={boardColumnsData[key]}
               isActive={activeInput === key}
               setActiveInput={setActiveInput}
               newTaskTitle={newTaskTitle}
               setNewTaskTitle={setNewTaskTitle}
-              addTask={addTask}
+              addTask={addTaskHandler}
             />
           ))}
         </div>

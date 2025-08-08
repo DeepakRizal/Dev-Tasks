@@ -1,10 +1,20 @@
 import { Plus } from "lucide-react";
-import type { Column } from "../../types/team";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import type { ColumnKey } from "../../types/team";
+
+// Interface for board display columns that includes tasks
+interface BoardColumn {
+  id: string;
+  title: string;
+  emoji: string;
+  tasks: Array<{
+    id: string;
+    title: string;
+    description?: string;
+  }>;
+}
 
 interface ColumnCardProps {
-  column: Column;
+  column: BoardColumn;
   isActive: boolean;
   newTaskTitle: string;
   setNewTaskTitle: (value: string) => void;
@@ -20,8 +30,6 @@ const ColumnCard = ({
   setActiveInput,
   addTask,
 }: ColumnCardProps) => {
-  const { columns, tasks } = useSelector((state: RootState) => state.task);
-
   return (
     <div className="bg-gray-900 border border-slate-700 rounded-lg p-4">
       {/* Column Header */}
@@ -63,7 +71,7 @@ const ColumnCard = ({
               className="w-full bg-transparent text-white text-sm outline-none mb-2"
               autoFocus
               onKeyDown={(e) => {
-                if (e.key === "Enter") addTask(column.id);
+                if (e.key === "Enter") addTask(column.id as ColumnKey);
                 else if (e.key === "Escape") {
                   setActiveInput(null);
                   setNewTaskTitle("");
@@ -72,7 +80,7 @@ const ColumnCard = ({
             />
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => addTask(column.id)}
+                onClick={() => addTask(column.id as ColumnKey)}
                 className="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition-colors"
               >
                 Add
@@ -90,7 +98,7 @@ const ColumnCard = ({
           </div>
         ) : (
           <button
-            onClick={() => setActiveInput(column.id)}
+            onClick={() => setActiveInput(column.id as ColumnKey)}
             className="w-full bg-gray-800 hover:bg-gray-700 border border-slate-600 border-dashed rounded-lg p-3 text-gray-400 hover:text-white transition-colors flex items-center justify-center space-x-2"
           >
             <Plus size={16} />

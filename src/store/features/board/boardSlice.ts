@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Board } from "../../../types/team";
 
 interface BoardState {
@@ -35,7 +35,33 @@ const initialState: BoardState = {
 const boardSlice = createSlice({
   name: "board",
   initialState,
-  reducers: {},
+  reducers: {
+    createBoard(state, action: PayloadAction<Board>) {
+      state.boards.push(action.payload);
+    },
+    updateBoard(
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<Board> }>
+    ) {
+      const { id, updates } = action.payload;
+      const board = state.boards.find((b) => b.id === id);
+      if (board) {
+        Object.assign(board, updates);
+      }
+    },
+    deleteBoard(state, action: PayloadAction<string>) {
+      state.boards = state.boards.filter((b) => b.id !== action.payload);
+      if (state.currentBoardId === action.payload) {
+        state.currentBoardId = null;
+      }
+    },
+    setCurrentBoard(state, action: PayloadAction<string | null>) {
+      state.currentBoardId = action.payload;
+    },
+  },
 });
+
+export const { createBoard, updateBoard, deleteBoard, setCurrentBoard } =
+  boardSlice.actions;
 
 export default boardSlice.reducer;
