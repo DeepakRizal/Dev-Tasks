@@ -8,6 +8,7 @@ import ModalForm from "../auth-form/ModalForm";
 import { createProject } from "../../store/features/project/projectSlice";
 import { createBoard } from "../../store/features/board/boardSlice";
 import { addColumn } from "../../store/features/tasks/taskSlice";
+import { addProjectToTeam } from "../../store/features/teams/teamSlice";
 
 interface AddProjectModalProps {
   isOpen: boolean;
@@ -79,6 +80,9 @@ const AddProjectModal = ({
       };
       //disptach the project
       dispatch(createProject(newProject));
+
+      //dispatch the projectId to add to the team state
+      dispatch(addProjectToTeam({ teamId, projectId }));
 
       //disptach the board
       dispatch(createBoard(newBoard));
