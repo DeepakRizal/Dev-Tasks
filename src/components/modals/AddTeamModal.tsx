@@ -29,7 +29,7 @@ const AddTeamModal = ({ isOpen, setIsOpen }: AddTeamModalProps) => {
         name: form.name,
         emoji: form.emoji ? form.emoji : "🧑‍💻",
         members: currentUserId ? [currentUserId] : [],
-        projects: [],
+        projectIds: [],
       };
 
       dispatch(createTeam(newTeam));
