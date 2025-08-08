@@ -40,8 +40,6 @@ const ProjectBoard: React.FC = () => {
   // Get columns for this specific board
   const boardColumns = columns.filter((col) => col.boardId === board?.id);
 
-  console.log(boardColumns);
-
   // Create columns data structure for the board
   const boardColumnsData: Columns = {
     todo: {

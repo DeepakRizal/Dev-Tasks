@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid4 } from "uuid";
 import type { AppDispatch, RootState } from "../../store/store";
-import { addProjectToTeam } from "../../store/features/teams/teamSlice";
 import ModalFormWrapper from "../../utils/common/ModalFormWrapper";
 import { useForm } from "../../hooks/useForm";
 import { validateProject } from "../../utils/validators";
 import ModalForm from "../auth-form/ModalForm";
+import { createProject } from "../../store/features/project/projectSlice";
+import { createBoard } from "../../store/features/board/boardSlice";
+import { addColumn } from "../../store/features/tasks/taskSlice";
 
 interface AddProjectModalProps {
   isOpen: boolean;
@@ -28,35 +30,63 @@ const AddProjectModal = ({
     },
     validate: validateProject,
     onSubmit: () => {
+      const projectId = uuid4();
+      const boardId = uuid4();
+
+      const todoId = `todo-${uuid4()}`;
+      const inProgressId = `inProgress-${uuid4()}`;
+      const completedId = `completed-${uuid4()}`;
+
+      const todoColumn = {
+        id: `todo-${uuid4()}`,
+        boardId,
+        title: "To Do",
+        emoji: "📝",
+        taskIds: [],
+      };
+
+      const inProgressColumn = {
+        id: `inProgress-${uuid4()}`,
+        boardId,
+        title: "In Progress",
+        emoji: "🔄",
+        taskIds: [],
+      };
+
+      const completedColumn = {
+        id: `completed-${uuid4()}`,
+        boardId,
+        title: "Completed",
+        emoji: "✅",
+        taskIds: [],
+      };
+
+      const newBoard = {
+        id: boardId,
+        projectId,
+        columnIds: [todoId, inProgressId, completedId],
+      };
+
       const newProject = {
-        id: uuid4(),
+        id: projectId,
         name: form.name,
         emoji: form.emoji ? form.emoji : "🧑‍💻",
         description: form.description,
         status: "Active",
         owner: currentUser?.name as string,
-        board: {
-          todo: {
-            id: "todo" as const,
-            title: "To Do",
-            emoji: "📝",
-            tasks: [],
-          },
-          inProgress: {
-            id: "inProgress" as const,
-            title: "In Progress",
-            emoji: "🔄",
-            tasks: [],
-          },
-          completed: {
-            id: "completed" as const,
-            title: "Completed",
-            emoji: "✅",
-            tasks: [],
-          },
-        },
+        teamId,
+        boardId,
       };
-      dispatch(addProjectToTeam({ teamId, project: newProject }));
+      //disptach the project
+      dispatch(createProject(newProject));
+
+      //disptach the board
+      dispatch(createBoard(newBoard));
+
+      //dispatch the three columns
+      dispatch(addColumn(todoColumn));
+      dispatch(addColumn(inProgressColumn));
+      dispatch(addColumn(completedColumn));
     },
     onClose: setIsOpen,
   });
