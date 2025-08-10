@@ -78,6 +78,7 @@ const taskSlice = createSlice({
   reducers: {
     addTask(state, action: PayloadAction<{ task: Task; columnId: string }>) {
       const { task, columnId } = action.payload;
+      console.log(task);
       state.tasks.push(task);
 
       // Update the column's taskIds

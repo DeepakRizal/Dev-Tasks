@@ -84,7 +84,7 @@ const ColumnCard = ({
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 handleChange(e.target.value, e.target.name)
               }
-              placeholder="Enter task title..."
+              placeholder="Enter task description..."
               className="w-full bg-transparent text-white text-sm outline-none mb-2"
             />
             <div className="flex items-center space-x-2">
