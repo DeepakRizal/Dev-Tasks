@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
-import type { ColumnKey } from "../../types/team";
+import type { ColumnKey, Task } from "../../types/team";
+import type React from "react";
 
 // Interface for board display columns that includes tasks
 interface BoardColumn {
@@ -16,20 +17,24 @@ interface BoardColumn {
 interface ColumnCardProps {
   column: BoardColumn;
   isActive: boolean;
-  newTaskTitle: string;
-  setNewTaskTitle: (value: string) => void;
-  setActiveInput: (value: "todo" | "inProgress" | "completed" | null) => void;
-  addTask: (columnId: "todo" | "inProgress" | "completed") => void;
+  task: Task;
+  setTask: React.Dispatch<React.SetStateAction<Task>>;
+  setActiveInput: (value: ColumnKey | null) => void;
+  addTask: (columnId: ColumnKey) => void;
 }
 
 const ColumnCard = ({
   column,
   isActive,
-  newTaskTitle,
-  setNewTaskTitle,
+  task,
+  setTask,
   setActiveInput,
   addTask,
 }: ColumnCardProps) => {
+  function handleChange(value: string, identifier: string) {
+    setTask((prevTask) => ({ ...prevTask, [identifier]: value }));
+  }
+
   return (
     <div className="bg-gray-900 border border-slate-700 rounded-lg p-4">
       {/* Column Header */}
@@ -65,18 +70,22 @@ const ColumnCard = ({
           <div className="bg-gray-800 border border-slate-600 rounded-lg p-3">
             <input
               type="text"
-              value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}
+              value={task.title}
+              name="title"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e.target.value, e.target.name)
+              }
               placeholder="Enter task title..."
               className="w-full bg-transparent text-white text-sm outline-none mb-2"
-              autoFocus
-              onKeyDown={(e) => {
-                if (e.key === "Enter") addTask(column.id as ColumnKey);
-                else if (e.key === "Escape") {
-                  setActiveInput(null);
-                  setNewTaskTitle("");
-                }
-              }}
+            />
+            <textarea
+              value={task.description}
+              name="description"
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleChange(e.target.value, e.target.name)
+              }
+              placeholder="Enter task title..."
+              className="w-full bg-transparent text-white text-sm outline-none mb-2"
             />
             <div className="flex items-center space-x-2">
               <button
@@ -88,7 +97,12 @@ const ColumnCard = ({
               <button
                 onClick={() => {
                   setActiveInput(null);
-                  setNewTaskTitle("");
+                  setTask({
+                    id: "",
+                    title: "",
+                    columnId: "",
+                    description: "",
+                  });
                 }}
                 className="bg-gray-600 hover:bg-gray-700 text-white text-xs px-3 py-1 rounded transition-colors"
               >

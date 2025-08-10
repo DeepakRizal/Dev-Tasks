@@ -5,6 +5,7 @@ import ColumnCard from "../../components/project/ColumnCard";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../../store/store";
 import { addTask } from "../../store/features/tasks/taskSlice";
+import { v4 as uuid4 } from "uuid";
 
 // Types
 
@@ -72,10 +73,15 @@ const ProjectBoard: React.FC = () => {
   };
 
   const [activeInput, setActiveInput] = useState<ColumnKey | null>(null);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [task, setTask] = useState({
+    id: "",
+    title: "",
+    columnId: "",
+    description: "",
+  });
 
   const addTaskHandler = (columnKey: ColumnKey) => {
-    if (!newTaskTitle.trim() || !board) return;
+    if (!task.title.trim() || !board) return;
 
     // Find the column ID for this board and column type
     const column = boardColumns.find((col) => {
@@ -90,15 +96,20 @@ const ProjectBoard: React.FC = () => {
     if (!column) return;
 
     const newTask: Task = {
-      id: Date.now().toString(),
-      title: newTaskTitle.trim(),
-      description: "",
+      id: uuid4(),
+      title: task.title.trim(),
+      description: task.description.trim(),
       columnId: column.id,
     };
 
     dispatch(addTask({ task: newTask, columnId: column.id }));
 
-    setNewTaskTitle("");
+    setTask({
+      id: "",
+      title: "",
+      columnId: "",
+      description: "",
+    });
     setActiveInput(null);
   };
 
@@ -171,8 +182,8 @@ const ProjectBoard: React.FC = () => {
               column={boardColumnsData[key]}
               isActive={activeInput === key}
               setActiveInput={setActiveInput}
-              newTaskTitle={newTaskTitle}
-              setNewTaskTitle={setNewTaskTitle}
+              task={task}
+              setTask={setTask}
               addTask={addTaskHandler}
             />
           ))}
