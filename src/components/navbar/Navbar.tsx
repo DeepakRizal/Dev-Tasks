@@ -2,7 +2,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RootState } from "../../store/store";
 
-const Navbar = () => {
+interface NavbarProps {
+  toggleSidebar: () => void;
+}
+
+const Navbar = ({ toggleSidebar }: NavbarProps) => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   return (
     <div className="flex items-center justify-between bg-black text-white px-10 py-4">
@@ -26,7 +30,10 @@ const Navbar = () => {
         </div>
       ) : (
         <div>
-          <div className="border flex gap-5 items-center  cursor-pointer border-gray-600 px-5 py-1.5 rounded-3xl">
+          <div
+            onClick={toggleSidebar}
+            className="border flex gap-5 items-center  cursor-pointer border-gray-600 px-5 py-1.5 rounded-3xl"
+          >
             <p>{currentUser.name}</p>
             <img
               className="h-6  rounded-md"
