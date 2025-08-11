@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import type { RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
-import { SquarePen } from "lucide-react";
+import { Plus, SquarePen } from "lucide-react";
 import { useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
@@ -54,6 +54,7 @@ const TeamDetailPage = () => {
             variant="primary"
             text="create project"
             onClick={handleClick}
+            icon={<Plus className="w-5 h-5" />}
           />
         </div>
 
@@ -152,6 +153,7 @@ const TeamDetailPage = () => {
           text="Create New Project"
           fullWidth
           size="lg"
+          icon={<Plus className="w-5 h-5" />}
         />
       </div>
 

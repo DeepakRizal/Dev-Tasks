@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
 
 interface CreateButtonProps {
@@ -11,6 +11,7 @@ interface CreateButtonProps {
   icon?: React.ReactNode;
   className?: string;
   to?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button = ({
@@ -19,9 +20,10 @@ const Button = ({
   variant = "primary",
   size = "md",
   fullWidth = false,
-  icon = <Plus className="w-5 h-5" />,
+  icon,
   className = "",
   to,
+  type,
 }: CreateButtonProps) => {
   const navigate = useNavigate();
 
@@ -62,6 +64,7 @@ const Button = ({
   return (
     <button
       onClick={to ? handleClick : onClick}
+      type={type ? type : "button"}
       className={`
         ${fullWidth ? "w-full" : "inline-flex"}
         cursor-pointer

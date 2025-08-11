@@ -1,3 +1,4 @@
+import Button from "../ui/Button";
 import FormInput from "./FormInput";
 import React from "react";
 
@@ -46,19 +47,19 @@ const ModalForm = ({
             />
           ))}
           <div className="flex justify-end gap-4 mt-6">
-            <button
-              type="button"
+            <Button
+              text="Cancel"
+              variant="primary"
+              className="bg-red-500 hover:bg-red-600"
               onClick={onCancel}
-              className="bg-red-500 text-white px-4 py-2 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
+              size="sm"
+            />
+            <Button
               type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded-md"
-            >
-              {submitText}
-            </button>
+              variant="primary"
+              text={submitText}
+              size="sm"
+            />
           </div>
         </form>
       </div>

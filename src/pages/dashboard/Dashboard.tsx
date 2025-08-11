@@ -4,6 +4,7 @@ import { useState } from "react";
 import AddTeamModal from "../../components/modals/AddTeamModal";
 import TeamCard from "../../components/teams/TeamCard";
 import Button from "../../components/ui/Button";
+import { Plus } from "lucide-react";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
@@ -44,6 +45,7 @@ const Dashboard = () => {
             text="Create New Team"
             fullWidth
             size="lg"
+            icon={<Plus className="w-5 h-5" />}
           />
         </div>
       </div>
