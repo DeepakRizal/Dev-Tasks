@@ -3,7 +3,7 @@ import type { RootState } from "../../store/store";
 import { useState } from "react";
 import AddTeamModal from "../../components/modals/AddTeamModal";
 import TeamCard from "../../components/teams/TeamCard";
-import CreateButton from "../../components/ui/CreateButtons";
+import Button from "../../components/ui/Button";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
@@ -38,11 +38,12 @@ const Dashboard = () => {
         </div>
 
         <div className="border-t border-slate-700 pt-10">
-          <CreateButton
-            variant="secondary"
+          <Button
+            variant="neutral"
             onClick={handleClick}
             text="Create New Team"
             fullWidth
+            size="lg"
           />
         </div>
       </div>

@@ -1,17 +1,19 @@
 import React from "react";
 import { Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface CreateButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   text: string;
   variant?: "primary" | "secondary" | "accent" | "neutral";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   icon?: React.ReactNode;
   className?: string;
+  to?: string;
 }
 
-const CreateButton = ({
+const Button = ({
   onClick,
   text,
   variant = "primary",
@@ -19,7 +21,16 @@ const CreateButton = ({
   fullWidth = false,
   icon = <Plus className="w-5 h-5" />,
   className = "",
+  to,
 }: CreateButtonProps) => {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    if (to) {
+      navigate(to);
+    }
+  }
+
   const getVariantClasses = () => {
     switch (variant) {
       case "primary":
@@ -50,7 +61,7 @@ const CreateButton = ({
 
   return (
     <button
-      onClick={onClick}
+      onClick={to ? handleClick : onClick}
       className={`
         ${fullWidth ? "w-full" : "inline-flex"}
         cursor-pointer
@@ -77,4 +88,4 @@ const CreateButton = ({
   );
 };
 
-export default CreateButton;
+export default Button;

@@ -5,7 +5,7 @@ import ProjectCard from "../../components/project/ProjectCard";
 import { SquarePen } from "lucide-react";
 import { useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
-import CreateButton from "../../components/ui/CreateButtons";
+import Button from "../../components/ui/Button";
 
 const TeamDetailPage = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
@@ -32,6 +32,8 @@ const TeamDetailPage = () => {
     );
   }
 
+  function handleEditName() {}
+
   function handleClick() {
     setIsOpen(!isOpen);
   }
@@ -48,7 +50,7 @@ const TeamDetailPage = () => {
             <span>Back to Dashboard</span>
           </Link>
 
-          <CreateButton
+          <Button
             variant="primary"
             text="create project"
             onClick={handleClick}
@@ -79,12 +81,13 @@ const TeamDetailPage = () => {
                 </div>
               </div>
             </div>
-            <button className="flex items-center cursor-pointer space-x-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md border border-slate-600 transition-colors">
-              <span>
-                <SquarePen />
-              </span>
-              <span>Edit Team Name</span>
-            </button>
+            <Button
+              text="Edit Team Name"
+              icon={<SquarePen />}
+              size="md"
+              variant="neutral"
+              onClick={handleEditName}
+            />
           </div>
         </div>
 
@@ -143,11 +146,12 @@ const TeamDetailPage = () => {
           </div>
         </div>
 
-        <CreateButton
-          variant="primary"
+        <Button
+          variant="neutral"
           onClick={handleClick}
           text="Create New Project"
           fullWidth
+          size="lg"
         />
       </div>
 

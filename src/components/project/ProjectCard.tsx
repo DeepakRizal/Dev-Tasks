@@ -1,7 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { User } from "../../types/auth";
 import type { Project } from "../../types/team";
 import { ClipboardList, SquarePen, Trash } from "lucide-react";
+import Button from "../ui/Button";
 
 interface ProjectProps {
   project: Project;
@@ -11,6 +12,11 @@ interface ProjectProps {
 
 const ProjectCard = ({ project, currentUser, projectId }: ProjectProps) => {
   const { teamId } = useParams();
+
+  function handleEdit() {}
+
+  function handleDelete() {}
+
   return (
     <div
       key={project.id}
@@ -24,29 +30,30 @@ const ProjectCard = ({ project, currentUser, projectId }: ProjectProps) => {
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <Link
+        <Button
           to={`/teams/${teamId}/project/${projectId}`}
-          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm transition-colors"
-        >
-          <span>
-            <ClipboardList size={15} />
-          </span>
-          <span>View Board</span>
-        </Link>
+          icon={<ClipboardList size={15} />}
+          text="View Board"
+          variant="secondary"
+          size="sm"
+        />
         {currentUser?.role === "admin" && (
           <>
-            <button className="flex cursor-pointer items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded text-sm transition-colors">
-              <span>
-                <SquarePen size={15} />
-              </span>
-              <span>Edit</span>
-            </button>
-            <button className="flex cursor-pointer items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded text-sm transition-colors">
-              <span>
-                <Trash size={15} />
-              </span>
-              <span>Delete</span>
-            </button>
+            <Button
+              text="Edit"
+              icon={<SquarePen size={15} />}
+              variant="neutral"
+              size="sm"
+              onClick={handleEdit}
+            />
+            <Button
+              text="Delete"
+              icon={<Trash size={15} />}
+              variant="accent"
+              className="bg-red-500 hover:bg-red-600"
+              size="sm"
+              onClick={handleDelete}
+            />
           </>
         )}
       </div>
