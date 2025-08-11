@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Dashboard from "./pages/dashboard/Dashboard";
 import TeamDetailPage from "./pages/team/TeamDetailPage";
 import ProjectBoard from "./pages/project/ProjectBoard";
+import PublicRoute from "./components/routes/PublicRoute";
 
 const App = () => {
   return (
@@ -14,25 +15,31 @@ const App = () => {
       <Route
         path="/"
         element={
-          <Layout>
-            <Home />
-          </Layout>
+          <PublicRoute>
+            <Layout>
+              <Home />
+            </Layout>
+          </PublicRoute>
         }
       />
       <Route
         path="/login"
         element={
-          <Layout>
-            <Login />
-          </Layout>
+          <PublicRoute>
+            <Layout>
+              <Login />
+            </Layout>
+          </PublicRoute>
         }
       />
       <Route
         path="/sign-up"
         element={
-          <Layout>
-            <SignUp />
-          </Layout>
+          <PublicRoute>
+            <Layout>
+              <SignUp />
+            </Layout>
+          </PublicRoute>
         }
       />
 
