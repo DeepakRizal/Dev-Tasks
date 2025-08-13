@@ -57,12 +57,13 @@ const UserSideBar = ({
               Dashboard
             </li>
           </ul>
-          <div className="flex items-center justify-center mt-5">
+          <div className="flex items-center justify-center mt-8">
             <Button
               text="Logout"
               onClick={handleLogout}
-              variant="neutral"
-              size="sm"
+              variant="primary"
+              size="md"
+              className="bg-red-500 py-1 hover:bg-red-600"
             />
           </div>
         </div>

@@ -8,6 +8,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import TeamDetailPage from "./pages/team/TeamDetailPage";
 import ProjectBoard from "./pages/project/ProjectBoard";
 import PublicRoute from "./components/routes/PublicRoute";
+import TeamList from "./pages/team/TeamList";
 
 const App = () => {
   return (
@@ -52,6 +53,16 @@ const App = () => {
             </Layout>
           }
         />
+
+        <Route
+          path="/teams"
+          element={
+            <Layout>
+              <TeamList />
+            </Layout>
+          }
+        />
+
         <Route
           path="/teams/:teamId"
           element={

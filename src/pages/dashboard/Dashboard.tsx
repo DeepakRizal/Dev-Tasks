@@ -35,18 +35,29 @@ const Dashboard = () => {
             {myTeams.map((team) => (
               <TeamCard team={team} key={team.id} />
             ))}
+            {myTeams.length === 0 && (
+              <p className="text-center text-2xl font-bold">
+                You are not in any teams
+              </p>
+            )}
           </div>
         </div>
 
         <div className="border-t border-slate-700 pt-10">
-          <Button
-            variant="neutral"
-            onClick={handleClick}
-            text="Create New Team"
-            fullWidth
-            size="lg"
-            icon={<Plus className="w-5 h-5" />}
-          />
+          {currentUser?.role === "admin" && (
+            <Button
+              variant="neutral"
+              onClick={handleClick}
+              text="Create New Team"
+              fullWidth
+              size="lg"
+              icon={<Plus className="w-5 h-5" />}
+            />
+          )}
+        </div>
+
+        <div className="flex items-center justify-center">
+          <Button text="View all Teams" variant="primary" to="/teams" />
         </div>
       </div>
       {isOpen && <AddTeamModal isOpen={isOpen} setIsOpen={setIsOpen} />}
