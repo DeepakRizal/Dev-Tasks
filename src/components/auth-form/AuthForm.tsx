@@ -58,6 +58,7 @@ const AuthForm = ({
           ))}
 
           <button
+            type="submit"
             className="py-2 font-bold text-white rounded-md w-full cursor-pointer hover:shadow-pink-500/50 transition-shadow duration-300"
             style={{
               background:

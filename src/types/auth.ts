@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password?: string;
@@ -10,4 +10,12 @@ export interface User {
 export interface LoginCredentials {
   email: string;
   password: string;
+}
+
+export interface SignupCredentials {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: "admin" | "user";
 }

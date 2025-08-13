@@ -15,6 +15,21 @@ const authService = {
 
     return user;
   },
+
+  async signup(credentials: Omit<User, "id">) {
+    const existinUserRes = await api.get(`/users?email=${credentials.email}`);
+
+    if (existinUserRes.data.length > 0) {
+      throw new Error("Email already registered");
+    }
+
+    const res = await api.post<User>("/users", credentials);
+    const createdUser = res.data;
+
+    createdUser.password = "";
+
+    return createdUser;
+  },
 };
 
 export default authService;

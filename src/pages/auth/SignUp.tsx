@@ -1,8 +1,16 @@
+import { useDispatch } from "react-redux";
 import AuthForm from "../../components/auth-form/AuthForm";
 import { useForm } from "../../hooks/useForm";
 import { validateSignUp } from "../../utils/validators";
+import type { AppDispatch } from "../../store/store";
+import { signupUser } from "../../store/features/auth/authSlice";
+import type { SignupCredentials } from "../../types/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const { form, handleSubmit, handleChange, errors } = useForm({
     initialValues: {
       name: "",
@@ -11,7 +19,29 @@ const SignUp = () => {
       confirmPassword: "",
     },
     validate: validateSignUp,
-    onSubmit: () => {},
+    onSubmit: async () => {
+      const newUser: SignupCredentials = {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+        confirmPassword: form.confirmPassword,
+        role: "user",
+      };
+
+      try {
+        // Wait for the signup to complete
+        const result = await dispatch(signupUser(newUser)).unwrap();
+
+        // Only navigate if signup was successful
+        if (result) {
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        // Error is already handled by the rejected case in the slice
+        // The error will be displayed in the AuthForm
+        console.error("Signup failed:", error);
+      }
+    },
   });
 
   const fields = [
