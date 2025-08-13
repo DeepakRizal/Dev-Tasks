@@ -1,4 +1,8 @@
 import { X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/features/auth/authSlice";
 
 interface UserSideBarProps {
   onSideBarOpen: boolean;
@@ -11,6 +15,18 @@ const UserSideBar = ({
   toggleSidebar,
   onCloseSidebar,
 }: UserSideBarProps) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  function handleClick() {
+    navigate("/dashboard");
+    onCloseSidebar();
+  }
+
+  function handleLogout() {
+    dispatch(logout());
+    navigate("/");
+  }
+
   return (
     <>
       {onSideBarOpen && (
@@ -34,11 +50,21 @@ const UserSideBar = ({
         <div className="p-4">
           <h2 className="text-xl font-bold mb-4">Sidebar Menu</h2>
           <ul>
-            <li className="mb-2 hover:bg-gray-700 p-2 rounded">Home</li>
-            <li className="mb-2 hover:bg-gray-700 p-2 rounded">About</li>
-            <li className="mb-2 hover:bg-gray-700 p-2 rounded">Services</li>
-            <li className="mb-2 hover:bg-gray-700 p-2 rounded">Contact</li>
+            <li
+              onClick={handleClick}
+              className="mb-2 cursor-pointer hover:bg-gray-700 p-2 rounded"
+            >
+              Dashboard
+            </li>
           </ul>
+          <div className="flex items-center justify-center mt-5">
+            <Button
+              text="Logout"
+              onClick={handleLogout}
+              variant="neutral"
+              size="sm"
+            />
+          </div>
         </div>
       </div>
     </>
