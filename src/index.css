@@ -15,5 +15,5 @@
 }
 
 .auth-heading-styles{
-  @apply text-center text-white mb-7 text-2xl font-bold
+  @apply text-center text-white mb-5 text-2xl font-bold
 }

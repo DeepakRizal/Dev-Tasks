@@ -21,8 +21,16 @@ export const loginUser = createAsyncThunk(
       const user = await authService.login(credentials);
 
       return user;
-    } catch (error) {
-      return thunkApi.rejectWithValue(error);
+    } catch (error: unknown) {
+      let message = "Something went wrong";
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+
+      return thunkApi.rejectWithValue(message);
     }
   }
 );

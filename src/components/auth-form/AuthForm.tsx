@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import FormInput from "./FormInput";
 import type React from "react";
 import type { FormEvent } from "react";
+import type { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 interface FieldConfig {
   name: string;
@@ -35,11 +37,13 @@ const AuthForm = ({
   footer,
   buttonText,
 }: AuthFormProps) => {
+  const { error } = useSelector((state: RootState) => state.auth);
+
   return (
     <div className=" flex items-center h-[100%]  justify-center">
       <form onSubmit={onSubmit} className="w-[350px]">
         <h2 className="auth-heading-styles">{headingText}</h2>
-
+        {error && <p className="text-red-500 text-center">{error}</p>}
         <div className="flex flex-col gap-5 items-center justify-center mb-4">
           {fields.map((field) => (
             <FormInput
