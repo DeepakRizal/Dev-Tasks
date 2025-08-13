@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 import type { ColumnKey, Task } from "../../types/team";
 import type React from "react";
+import Button from "../ui/Button";
 
 // Interface for board display columns that includes tasks
 interface BoardColumn {
@@ -33,6 +34,10 @@ const ColumnCard = ({
 }: ColumnCardProps) => {
   function handleChange(value: string, identifier: string) {
     setTask((prevTask) => ({ ...prevTask, [identifier]: value }));
+  }
+
+  function handleAddTask(id: ColumnKey) {
+    setActiveInput(id);
   }
 
   return (
@@ -111,13 +116,13 @@ const ColumnCard = ({
             </div>
           </div>
         ) : (
-          <button
-            onClick={() => setActiveInput(column.id as ColumnKey)}
-            className="w-full bg-gray-800 hover:bg-gray-700 border border-slate-600 border-dashed rounded-lg p-3 text-gray-400 hover:text-white transition-colors flex items-center justify-center space-x-2"
-          >
-            <Plus size={16} />
-            <span className="text-sm">Add Task</span>
-          </button>
+          <Button
+            icon={<Plus size={16} />}
+            text="Add Task"
+            onClick={() => handleAddTask(column.id as ColumnKey)}
+            variant="neutral"
+            fullWidth
+          />
         )}
       </div>
     </div>

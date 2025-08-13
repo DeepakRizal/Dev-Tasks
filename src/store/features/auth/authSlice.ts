@@ -1,18 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { User } from "../../../types/auth";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import type { LoginCredentials, User } from "../../../types/auth";
+import authService from "../../../services/authService";
 
 interface AuthState {
   currentUser: User | null;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: AuthState = {
-  currentUser: {
-    id: "123",
-    name: "xyz",
-    email: "xyz@gmail.com",
-    role: "admin",
-  },
+  currentUser: null,
+  loading: false,
+  error: null,
 };
+
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (credentials: LoginCredentials, thunkApi) => {
+    try {
+      const user = await authService.login(credentials);
+
+      return user;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -24,6 +37,21 @@ const authSlice = createSlice({
     logout(state) {
       state.currentUser = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
