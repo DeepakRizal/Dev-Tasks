@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Team } from "../../../types/team";
-import { fetchAllTeams, createTeam } from "./teamThunks";
+import { fetchAllTeams, createTeam, deleteTeam } from "./teamThunks";
 
 interface TeamState {
   teams: Team[];
@@ -53,6 +53,21 @@ const teamSlice = createSlice({
         state.teams.push(action.payload);
       })
       .addCase(createTeam.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deleteTeam.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteTeam.fulfilled, (state, action) => {
+        state.loading = false;
+        const filteredTeams = state.teams.filter(
+          (team) => team.id !== action.payload
+        );
+        state.teams = filteredTeams;
+      })
+      .addCase(deleteTeam.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

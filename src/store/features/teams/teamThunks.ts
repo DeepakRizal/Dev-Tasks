@@ -38,3 +38,21 @@ export const createTeam = createAsyncThunk(
     }
   }
 );
+
+export const deleteTeam = createAsyncThunk(
+  "teams/deleteTeam",
+  async (teamId: string, thunkApi) => {
+    try {
+      const id = teamService.deleteTeam(teamId);
+      return id;
+    } catch (error) {
+      let message = "Something went wrong";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
