@@ -17,7 +17,7 @@ const TeamList = () => {
       </Link>
       <div className="space-y-4">
         {teams.map((team) => (
-          <TeamCard team={team} />
+          <TeamCard key={team.id} team={team} />
         ))}
       </div>
     </div>

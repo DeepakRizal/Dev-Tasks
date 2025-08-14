@@ -9,6 +9,13 @@ const teamService = {
 
     return data;
   },
+  async createTeam(team: Omit<Team, "id">) {
+    const res = await api.post("/teams", team);
+
+    const data = res.data;
+
+    return data;
+  },
 };
 
 export default teamService;

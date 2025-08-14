@@ -1,19 +1,26 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
+import { useEffect, useState } from "react";
 import AddTeamModal from "../../components/modals/AddTeamModal";
 import TeamCard from "../../components/teams/TeamCard";
 import Button from "../../components/ui/Button";
 import { Plus } from "lucide-react";
+import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const teams = useSelector((state: RootState) => state.team.teams);
   const [isOpen, setIsOpen] = useState(false);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   function handleClick() {
     setIsOpen(!isOpen);
   }
+
+  useEffect(() => {
+    dispatch(fetchAllTeams());
+  }, [dispatch]);
 
   const myTeams = teams.filter((team) =>
     team.members.includes(currentUser?.id || "")

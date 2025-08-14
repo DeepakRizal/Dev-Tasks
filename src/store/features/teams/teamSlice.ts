@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Team } from "../../../types/team";
-import { fetchAllTeams } from "./teamThunks";
+import { fetchAllTeams, createTeam } from "./teamThunks";
 
 interface TeamState {
   teams: Team[];
@@ -18,9 +18,6 @@ const teamSlice = createSlice({
   name: "team",
   initialState,
   reducers: {
-    createTeam(state, action: PayloadAction<Team>) {
-      state.teams.push(action.payload);
-    },
     addProjectToTeam(
       state,
       action: PayloadAction<{ teamId: string; projectId: string }>
@@ -46,10 +43,22 @@ const teamSlice = createSlice({
       .addCase(fetchAllTeams.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(createTeam.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createTeam.fulfilled, (state, action) => {
+        state.loading = false;
+        state.teams.push(action.payload);
+      })
+      .addCase(createTeam.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
-export const { createTeam, addProjectToTeam } = teamSlice.actions;
+export const { addProjectToTeam } = teamSlice.actions;
 
 export default teamSlice.reducer;

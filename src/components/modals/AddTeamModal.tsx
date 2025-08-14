@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuid4 } from "uuid";
 import type { AppDispatch, RootState } from "../../store/store";
-import { createTeam } from "../../store/features/teams/teamSlice";
+
 import { useForm } from "../../hooks/useForm";
 import { validateTeam } from "../../utils/validators";
 import ModalFormWrapper from "../../utils/common/ModalFormWrapper";
 import ModalForm from "../auth-form/ModalForm";
+import { createTeam } from "../../store/features/teams/teamThunks";
 
 interface AddTeamModalProps {
   isOpen: boolean;
