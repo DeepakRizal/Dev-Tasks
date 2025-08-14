@@ -1,11 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import type { RootState } from "../../store/store";
+import type { AppDispatch, RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
 import { Plus, SquarePen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
+import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 
 const TeamDetailPage = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
@@ -15,6 +16,12 @@ const TeamDetailPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const team = teams.find((team) => team.id === teamId);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAllTeams());
+  }, [dispatch]);
 
   if (!team) {
     return (
@@ -153,6 +160,7 @@ const TeamDetailPage = () => {
           text="Create New Project"
           fullWidth
           size="lg"
+          className=" mb-5"
           icon={<Plus className="w-5 h-5" />}
         />
       </div>

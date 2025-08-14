@@ -56,7 +56,7 @@ const Dashboard = () => {
           )}
         </div>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center mt-8">
           <Button text="View all Teams" variant="primary" to="/teams" />
         </div>
       </div>
