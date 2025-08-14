@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import type { Team } from "../../types/team";
 import { FolderKanban } from "lucide-react";
 import Button from "../ui/Button";
-import { useDispatch } from "react-redux";
-import { deleteTeam } from "../../store/features/teams/teamThunks";
-import type { AppDispatch } from "../../store/store";
+import { useState } from "react";
+import DeleteModal from "../modals/DeleteModal";
 
 interface TeamCardProps {
   team: Team;
@@ -12,11 +11,8 @@ interface TeamCardProps {
 
 const TeamCard = ({ team }: TeamCardProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
 
-  function handleDelete() {
-    dispatch(deleteTeam(team.id));
-  }
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 transition-colors ">
@@ -28,7 +24,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
       <div className="flex gap-5">
         <Button
           text="Delete"
-          onClick={handleDelete}
+          onClick={() => setIsOpen(true)}
           className="bg-red-500 hover:bg-red-500"
           size="sm"
         />
@@ -41,6 +37,9 @@ const TeamCard = ({ team }: TeamCardProps) => {
           size="sm"
         />
       </div>
+      {isOpen && (
+        <DeleteModal id={team.id} isOpen={isOpen} setIsOpen={setIsOpen} />
+      )}
     </div>
   );
 };
