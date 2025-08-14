@@ -1,3 +1,4 @@
+import type { Team } from "../../types/team";
 import Button from "../ui/Button";
 import FormInput from "./FormInput";
 import React from "react";
@@ -17,6 +18,7 @@ interface ModalFormProps {
   errors: Record<string, string>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitText: string;
+  team?: Team;
 }
 
 const ModalForm = ({
