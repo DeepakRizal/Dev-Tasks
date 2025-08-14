@@ -23,6 +23,14 @@ const teamService = {
 
     return teamId;
   },
+
+  async updateTeam(data: Partial<Team>, teamId: string) {
+    const res = await api.put(`/teams/${teamId}`, data);
+
+    const updatedData = res.data;
+
+    return updatedData;
+  },
 };
 
 export default teamService;
