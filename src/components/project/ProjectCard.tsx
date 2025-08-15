@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
-import type { User } from "../../types/auth";
 import type { Project } from "../../types/team";
 import { ClipboardList, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
+import { useRole } from "../../hooks/useRole";
 
 interface ProjectProps {
   project: Project;
-  currentUser: User | null;
   projectId: string;
 }
 
-const ProjectCard = ({ project, currentUser, projectId }: ProjectProps) => {
+const ProjectCard = ({ project, projectId }: ProjectProps) => {
   const { teamId } = useParams();
+  const role = useRole();
 
   function handleEdit() {}
 
@@ -37,7 +37,7 @@ const ProjectCard = ({ project, currentUser, projectId }: ProjectProps) => {
           variant="secondary"
           size="sm"
         />
-        {currentUser?.role === "admin" && (
+        {role === "Admin" && (
           <>
             <Button
               text="Edit"

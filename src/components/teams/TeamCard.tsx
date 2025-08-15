@@ -4,20 +4,19 @@ import { FolderKanban, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
 import { useState } from "react";
 import DeleteModal from "../modals/DeleteModal";
-import AddTeamModal from "../modals/AddTeamModal"; // Import the modal
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import AddTeamModal from "../modals/AddTeamModal";
+import { useRole } from "../../hooks/useRole";
 
 interface TeamCardProps {
   team: Team;
 }
 
 const TeamCard = ({ team }: TeamCardProps) => {
-  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const navigate = useNavigate();
+  const role = useRole();
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false); // Add state for edit modal
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 transition-colors ">
@@ -27,7 +26,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
       </div>
 
       <div className="flex gap-5">
-        {currentUser?.role === "admin" && (
+        {role === "Admin" && (
           <>
             <Button
               icon={<Trash size={15} />}
@@ -42,7 +41,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
               variant="secondary"
               size="sm"
               icon={<SquarePen size={15} />}
-              onClick={() => setIsEditOpen(true)} // Open edit modal
+              onClick={() => setIsEditOpen(true)}
             />
           </>
         )}
@@ -69,8 +68,8 @@ const TeamCard = ({ team }: TeamCardProps) => {
         <AddTeamModal
           isOpen={isEditOpen}
           setIsOpen={setIsEditOpen}
-          team={team} // Pass the team to be edited
-          isEditMode={true} // Add this prop to indicate edit mode
+          team={team}
+          isEditMode={true}
         />
       )}
     </div>

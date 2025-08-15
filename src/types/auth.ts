@@ -1,9 +1,11 @@
+export type Role = "Admin" | "Maintainer" | "Member" | "Viewer";
+
 export interface User {
   id?: string;
   name: string;
   email: string;
   password?: string;
-  role: "admin" | "user";
+  role: Role;
   teamId?: string;
 }
 
@@ -17,5 +19,5 @@ export interface SignupCredentials {
   email: string;
   password: string;
   confirmPassword: string;
-  role: "admin" | "user";
+  role: Role;
 }

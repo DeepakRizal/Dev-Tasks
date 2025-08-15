@@ -6,11 +6,13 @@ import TeamCard from "../../components/teams/TeamCard";
 import Button from "../../components/ui/Button";
 import { Plus } from "lucide-react";
 import { fetchAllTeams } from "../../store/features/teams/teamThunks";
+import { useRole } from "../../hooks/useRole";
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const teams = useSelector((state: RootState) => state.team.teams);
   const [isOpen, setIsOpen] = useState(false);
+  const role = useRole();
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -67,7 +69,7 @@ const Dashboard = () => {
         </div>
 
         <div className="border-t border-slate-700 pt-10">
-          {currentUser?.role === "admin" && (
+          {role === "Admin" && (
             <Button
               variant="neutral"
               onClick={handleClick}

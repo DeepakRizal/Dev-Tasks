@@ -139,7 +139,6 @@ const TeamDetailPage = () => {
             {projects.map((project) => (
               <ProjectCard
                 project={project}
-                currentUser={currentUser}
                 key={project.id}
                 projectId={project.id}
               />

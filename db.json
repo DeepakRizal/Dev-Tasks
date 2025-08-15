@@ -5,7 +5,7 @@
       "name": "xyz",
       "email": "xyz@gmail.com",
       "password": "password123",
-      "role": "admin"
+      "role": "Admin"
     },
     {
       "id": "95b7",
@@ -13,45 +13,29 @@
       "email": "natours@gmail.com",
       "password": "password",
       "confirmPassword": "password",
-      "role": "user"
+      "role": "Viewer"
     }
   ],
   "boards": [
     {
       "id": "board-1",
       "projectId": "1",
-      "columnIds": [
-        "todo-1",
-        "inProgress-1",
-        "completed-1"
-      ]
+      "columnIds": ["todo-1", "inProgress-1", "completed-1"]
     },
     {
       "id": "board-2",
       "projectId": "2",
-      "columnIds": [
-        "todo-2",
-        "inProgress-2",
-        "completed-2"
-      ]
+      "columnIds": ["todo-2", "inProgress-2", "completed-2"]
     },
     {
       "id": "board-3",
       "projectId": "3",
-      "columnIds": [
-        "todo-3",
-        "inProgress-3",
-        "completed-3"
-      ]
+      "columnIds": ["todo-3", "inProgress-3", "completed-3"]
     },
     {
       "id": "board-4",
       "projectId": "4",
-      "columnIds": [
-        "todo-4",
-        "inProgress-4",
-        "completed-4"
-      ]
+      "columnIds": ["todo-4", "inProgress-4", "completed-4"]
     }
   ],
   "projects": [
@@ -140,30 +124,21 @@
       "boardId": "board-1",
       "title": "To Do",
       "emoji": "📝",
-      "taskIds": [
-        "1",
-        "2"
-      ]
+      "taskIds": ["1", "2"]
     },
     {
       "id": "inProgress-1",
       "boardId": "board-1",
       "title": "In Progress",
       "emoji": "🔄",
-      "taskIds": [
-        "3",
-        "4"
-      ]
+      "taskIds": ["3", "4"]
     },
     {
       "id": "completed-1",
       "boardId": "board-1",
       "title": "Completed",
       "emoji": "✅",
-      "taskIds": [
-        "5",
-        "6"
-      ]
+      "taskIds": ["5", "6"]
     }
   ],
   "teams": [
@@ -171,33 +146,21 @@
       "id": "1",
       "name": "Dev Warriors",
       "emoji": "🧑‍💻",
-      "members": [
-        "123"
-      ],
-      "projectIds": [
-        "1",
-        "2"
-      ]
+      "members": ["123"],
+      "projectIds": ["1", "2"]
     },
     {
       "id": "2",
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
-      "members": [
-        "123"
-      ],
-      "projectIds": [
-        "3",
-        "4"
-      ]
+      "members": ["123"],
+      "projectIds": ["3", "4"]
     },
     {
       "id": "733346fd-fe71-4531-940c-fbc42846a851",
       "name": "natours123",
-      "emoji": "🤣",
-      "members": [
-        "123"
-      ],
+      "emoji": "🖐️",
+      "members": ["123"],
       "projectIds": []
     }
   ]

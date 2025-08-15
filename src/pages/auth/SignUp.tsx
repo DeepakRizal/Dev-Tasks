@@ -25,7 +25,7 @@ const SignUp = () => {
         email: form.email,
         password: form.password,
         confirmPassword: form.confirmPassword,
-        role: "user",
+        role: "Viewer",
       };
 
       try {
