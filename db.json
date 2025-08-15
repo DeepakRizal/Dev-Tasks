@@ -47,7 +47,8 @@
       "owner": "xyz",
       "status": "Active",
       "teamId": "1",
-      "boardId": "board-1"
+      "boardId": "board-1",
+      "archived": false
     },
     {
       "id": "2",
@@ -57,7 +58,8 @@
       "owner": "xyz",
       "status": "Active",
       "teamId": "1",
-      "boardId": "board-2"
+      "boardId": "board-2",
+      "archived": false
     },
     {
       "id": "3",
@@ -67,7 +69,8 @@
       "owner": "xyz",
       "status": "Active",
       "teamId": "2",
-      "boardId": "board-3"
+      "boardId": "board-3",
+      "archived": false
     },
     {
       "id": "4",
@@ -77,7 +80,8 @@
       "owner": "xyz",
       "status": "Active",
       "teamId": "2",
-      "boardId": "board-4"
+      "boardId": "board-4",
+      "archived": false
     }
   ],
   "tasks": [

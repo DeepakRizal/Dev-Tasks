@@ -1,0 +1,40 @@
+import type { Project } from "../types/team";
+import { api } from "./api";
+
+export const projectService = {
+  async createProject(data: Omit<Project, "id">) {
+    const res = await api.post("/projects", data);
+
+    const newProject = res.data;
+
+    return newProject;
+  },
+  async archiveProject(data: Partial<Project>) {
+    const res = await api.put("/projects", data);
+
+    const updatedProject = res.data;
+
+    return updatedProject;
+  },
+  async restoreProject(data: Partial<Project>) {
+    const res = await api.put("/projects", data);
+
+    const updatedProject = res.data;
+
+    return updatedProject;
+  },
+
+  async deleteProject(id: string) {
+    await api.delete(`/projects/${id}`);
+
+    return id;
+  },
+
+  async updateProjectMembers(data: Partial<Project>) {
+    const res = await api.put("/projects", data);
+
+    const updatedProject = res.data;
+
+    return updatedProject;
+  },
+};

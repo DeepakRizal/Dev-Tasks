@@ -3,6 +3,7 @@ import type { Project } from "../../types/team";
 import { ClipboardList, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
 import { useRole } from "../../hooks/useRole";
+import { can } from "../../utils/permission";
 
 interface ProjectProps {
   project: Project;
@@ -37,7 +38,7 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
           variant="secondary"
           size="sm"
         />
-        {role === "Admin" && (
+        {role && can.manageProjects(role) && (
           <>
             <Button
               text="Edit"

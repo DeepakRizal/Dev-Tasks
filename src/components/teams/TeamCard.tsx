@@ -6,6 +6,7 @@ import { useState } from "react";
 import DeleteModal from "../modals/DeleteModal";
 import AddTeamModal from "../modals/AddTeamModal";
 import { useRole } from "../../hooks/useRole";
+import { can } from "../../utils/permission";
 
 interface TeamCardProps {
   team: Team;
@@ -26,7 +27,7 @@ const TeamCard = ({ team }: TeamCardProps) => {
       </div>
 
       <div className="flex gap-5">
-        {role === "Admin" && (
+        {role && can.manageTeams(role) && (
           <>
             <Button
               icon={<Trash size={15} />}
