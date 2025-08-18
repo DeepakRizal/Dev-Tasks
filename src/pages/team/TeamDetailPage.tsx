@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import type { RootState } from "../../store/store";
+import type { AppDispatch, RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
 import { Plus, SquarePen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
+import { getAllProjectsOfATeam } from "../../store/features/project/projectThunks";
 
 const TeamDetailPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const projects = useSelector((state: RootState) => state.project.projects);
   const teams = useSelector((state: RootState) => state.team.teams);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
@@ -15,6 +17,10 @@ const TeamDetailPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const team = teams.find((team) => team.id === teamId);
+
+  useEffect(() => {
+    dispatch(getAllProjectsOfATeam(teamId as string));
+  }, [dispatch, teamId]);
 
   if (!team) {
     return (
@@ -136,13 +142,19 @@ const TeamDetailPage = () => {
             <span>Projects:</span>
           </h2>
           <div className="space-y-3">
-            {projects.map((project) => (
-              <ProjectCard
-                project={project}
-                key={project.id}
-                projectId={project.id}
-              />
-            ))}
+            {projects.length > 0 &&
+              projects.map((project) => (
+                <ProjectCard
+                  project={project}
+                  key={project.id}
+                  projectId={project.id}
+                />
+              ))}
+            {projects.length === 0 && (
+              <p className="text-center text-2xl font-bold">
+                No Projects to show for this team
+              </p>
+            )}
           </div>
         </div>
 

@@ -37,4 +37,20 @@ export const projectService = {
 
     return updatedProject;
   },
+
+  async getAllProjects() {
+    const res = await api.get("/users");
+    const allProjects = res.data;
+    return allProjects;
+  },
+
+  async getAllProjectsOfATeam(teamId: string) {
+    const resProjects = await api.get("/projects");
+
+    const projects = resProjects.data.filter(
+      (project: Project) => project.teamId === teamId
+    );
+
+    return projects;
+  },
 };

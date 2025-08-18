@@ -37,7 +37,6 @@ export const archiveProject = createAsyncThunk(
       } else if (typeof error === "string") {
         message = error;
       }
-
       return thunkApi.rejectWithValue(message);
     }
   }
@@ -57,7 +56,6 @@ export const restoreProject = createAsyncThunk(
       } else if (typeof error === "string") {
         message = error;
       }
-
       return thunkApi.rejectWithValue(message);
     }
   }
@@ -77,18 +75,16 @@ export const deleteProject = createAsyncThunk(
       } else if (typeof error === "string") {
         message = error;
       }
-
       return thunkApi.rejectWithValue(message);
     }
   }
 );
 
 export const updateProjectMembers = createAsyncThunk(
-  "projects/updateTeam",
+  "projects/updateProjectMembers",
   async (data: Partial<Project>, thunkApi) => {
     try {
       const updatedProject = await projectService.updateProjectMembers(data);
-
       return updatedProject;
     } catch (error) {
       let message = "Something went wrong!";
@@ -98,7 +94,44 @@ export const updateProjectMembers = createAsyncThunk(
       } else if (typeof error === "string") {
         message = error;
       }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
 
+export const getAllProjects = createAsyncThunk(
+  "projects/getAllProjects",
+  async (_, thunkApi) => {
+    try {
+      const projects = projectService.getAllProjects();
+
+      return projects;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllProjectsOfATeam = createAsyncThunk(
+  "projects/getAllProjectsOfATeam",
+  async (teamId: string, thunkApi) => {
+    try {
+      const projects = await projectService.getAllProjectsOfATeam(teamId);
+      return projects;
+    } catch (error) {
+      let message = "Something went wrong!";
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
       return thunkApi.rejectWithValue(message);
     }
   }

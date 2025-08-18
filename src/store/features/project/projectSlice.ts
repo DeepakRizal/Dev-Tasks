@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../../../types/team";
-import { createProject } from "./projectThunks";
+import { createProject, getAllProjectsOfATeam } from "./projectThunks";
 
 interface ProjectState {
   projects: Project[];
@@ -10,49 +10,7 @@ interface ProjectState {
 }
 
 const initialState: ProjectState = {
-  projects: [
-    {
-      id: "1",
-      name: "DevForge Clone",
-      emoji: "🔧",
-      description: "A comprehensive development platform clone",
-      owner: "xyz",
-      status: "Active",
-      teamId: "1", // <-- added
-      boardId: "board-1", // <-- added
-    },
-    {
-      id: "2",
-      name: "Portfolio Redesign",
-      emoji: "🌐",
-      description: "Modern portfolio website redesign",
-      owner: "xyz",
-      status: "Active",
-      teamId: "1",
-      boardId: "board-2",
-    },
-    {
-      id: "3",
-      name: "CodeBuddy",
-      emoji: "🤖",
-      description: "An AI pair programming assistant",
-      owner: "xyz",
-      status: "Active",
-      teamId: "2",
-      boardId: "board-3",
-    },
-    {
-      id: "4",
-      name: "UI Toolkit",
-      emoji: "🧰",
-      description: "Reusable components for design systems",
-      owner: "xyz",
-      status: "Active",
-      teamId: "2",
-      boardId: "board-4",
-    },
-  ],
-
+  projects: [],
   currentProjectId: null,
   loading: false,
   error: null,
@@ -84,6 +42,20 @@ const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getAllProjectsOfATeam.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getAllProjectsOfATeam.fulfilled, (state, action) => {
+        state.loading = false;
+        if (action.payload.length > 0) {
+          state.projects = action.payload;
+        }
+      })
+      .addCase(getAllProjectsOfATeam.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(createProject.pending, (state) => {
         state.loading = true;
         state.error = null;
