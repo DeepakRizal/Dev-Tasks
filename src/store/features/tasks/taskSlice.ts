@@ -1,9 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Column, Task } from "../../../types/team";
+import { createColumn } from "../column/columnThunks";
 
 interface TaskState {
   tasks: Task[];
   columns: Column[];
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: TaskState = {
@@ -70,6 +73,8 @@ const initialState: TaskState = {
       taskIds: ["5", "6"],
     },
   ],
+  loading: false,
+  error: null,
 };
 
 const taskSlice = createSlice({
@@ -121,7 +126,6 @@ const taskSlice = createSlice({
       if (task) {
         task.columnId = toColumnId;
       }
-
       // Update column taskIds
       const fromColumn = state.columns.find((col) => col.id === fromColumnId);
       const toColumn = state.columns.find((col) => col.id === toColumnId);
@@ -153,6 +157,21 @@ const taskSlice = createSlice({
       // Remove tasks that belong to this column
       state.tasks = state.tasks.filter((task) => task.columnId !== columnId);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createColumn.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createColumn.fulfilled, (state, action) => {
+        state.loading = false;
+        state.columns.push(action.payload);
+      })
+      .addCase(createColumn.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 

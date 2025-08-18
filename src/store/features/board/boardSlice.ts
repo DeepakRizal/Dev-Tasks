@@ -1,9 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Board } from "../../../types/team";
+import { createBoard } from "./boardThunks";
 
 interface BoardState {
   boards: Board[];
   currentBoardId: string | null;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: BoardState = {
@@ -30,15 +33,14 @@ const initialState: BoardState = {
     },
   ],
   currentBoardId: null,
+  loading: false,
+  error: null,
 };
 
 const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    createBoard(state, action: PayloadAction<Board>) {
-      state.boards.push(action.payload);
-    },
     updateBoard(
       state,
       action: PayloadAction<{ id: string; updates: Partial<Board> }>
@@ -59,9 +61,23 @@ const boardSlice = createSlice({
       state.currentBoardId = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createBoard.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createBoard.fulfilled, (state, action) => {
+        state.loading = false;
+        state.boards.push(action.payload);
+      })
+      .addCase(createBoard.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action.payload as string;
+      });
+  },
 });
 
-export const { createBoard, updateBoard, deleteBoard, setCurrentBoard } =
-  boardSlice.actions;
+export const { updateBoard, deleteBoard, setCurrentBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

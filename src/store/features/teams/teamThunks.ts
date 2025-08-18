@@ -66,12 +66,36 @@ export const updateTeam = createAsyncThunk(
 
       return updatedTeam;
     } catch (error) {
-      let message = "Something went wrong";
+      let message = "Something went wrong!";
       if (error instanceof Error) {
         message = error.message;
       } else if (typeof error === "string") {
         message = error;
       }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const addProjectToTeam = createAsyncThunk(
+  "teams/addProjectToTeam",
+  async (data: { teamId: string; projectId: string }, thunkApi) => {
+    try {
+      const updatedTeam = await teamService.addProjectToTeam(
+        data.teamId,
+        data.projectId
+      );
+
+      return updatedTeam;
+    } catch (error) {
+      let message = "Something went wrong!";
+
+      if (error instanceof Error) {
+        error.message = message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+
       return thunkApi.rejectWithValue(message);
     }
   }

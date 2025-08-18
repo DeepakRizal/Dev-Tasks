@@ -5,10 +5,11 @@ import ModalFormWrapper from "../../utils/common/ModalFormWrapper";
 import { useForm } from "../../hooks/useForm";
 import { validateProject } from "../../utils/validators";
 import ModalForm from "../auth-form/ModalForm";
-import { createProject } from "../../store/features/project/projectSlice";
-import { createBoard } from "../../store/features/board/boardSlice";
-import { addColumn } from "../../store/features/tasks/taskSlice";
-import { addProjectToTeam } from "../../store/features/teams/teamSlice";
+
+import { createProject } from "../../store/features/project/projectThunks";
+import { createBoard } from "../../store/features/board/boardThunks";
+import { createColumn } from "../../store/features/column/columnThunks";
+import { addProjectToTeam } from "../../store/features/teams/teamThunks";
 
 interface AddProjectModalProps {
   isOpen: boolean;
@@ -88,9 +89,9 @@ const AddProjectModal = ({
       dispatch(createBoard(newBoard));
 
       //dispatch the three columns
-      dispatch(addColumn(todoColumn));
-      dispatch(addColumn(inProgressColumn));
-      dispatch(addColumn(completedColumn));
+      dispatch(createColumn(todoColumn));
+      dispatch(createColumn(inProgressColumn));
+      dispatch(createColumn(completedColumn));
     },
     onClose: setIsOpen,
   });

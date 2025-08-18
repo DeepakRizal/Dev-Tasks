@@ -31,6 +31,22 @@ const teamService = {
 
     return updatedData;
   },
+  async addProjectToTeam(teamId: string, projectId: string) {
+    //get the team first
+    const res = await api.get(`/teams/${teamId}`);
+    const team = res.data as Team;
+
+    //update its projectIds array
+    const updatedTeam = {
+      ...team,
+      projectIds: [...team.projectIds, projectId],
+    };
+
+    //save changes
+    const updateRes = await api.put(`/teams/${teamId}`, updatedTeam);
+
+    return updateRes.data as Team;
+  },
 };
 
 export default teamService;

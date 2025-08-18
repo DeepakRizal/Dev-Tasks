@@ -1,9 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../../../types/team";
+import { createProject } from "./projectThunks";
 
 interface ProjectState {
   projects: Project[];
   currentProjectId: string | null;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: ProjectState = {
@@ -51,15 +54,14 @@ const initialState: ProjectState = {
   ],
 
   currentProjectId: null,
+  loading: false,
+  error: null,
 };
 
 const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
-    createProject(state, action: PayloadAction<Project>) {
-      state.projects.push(action.payload);
-    },
     updateProject(
       state,
       action: PayloadAction<{ id: string; updates: Partial<Project> }>
@@ -80,13 +82,24 @@ const projectSlice = createSlice({
       state.currentProjectId = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createProject.fulfilled, (state, action) => {
+        state.loading = false;
+        state.projects.push(action.payload);
+      })
+      .addCase(createProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+  },
 });
 
-export const {
-  createProject,
-  updateProject,
-  deleteProject,
-  setCurrentProject,
-} = projectSlice.actions;
+export const { updateProject, deleteProject, setCurrentProject } =
+  projectSlice.actions;
 
 export default projectSlice.reducer;

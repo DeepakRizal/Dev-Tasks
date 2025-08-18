@@ -20,22 +20,47 @@
     {
       "id": "board-1",
       "projectId": "1",
-      "columnIds": ["todo-1", "inProgress-1", "completed-1"]
+      "columnIds": [
+        "todo-1",
+        "inProgress-1",
+        "completed-1"
+      ]
     },
     {
       "id": "board-2",
       "projectId": "2",
-      "columnIds": ["todo-2", "inProgress-2", "completed-2"]
+      "columnIds": [
+        "todo-2",
+        "inProgress-2",
+        "completed-2"
+      ]
     },
     {
       "id": "board-3",
       "projectId": "3",
-      "columnIds": ["todo-3", "inProgress-3", "completed-3"]
+      "columnIds": [
+        "todo-3",
+        "inProgress-3",
+        "completed-3"
+      ]
     },
     {
       "id": "board-4",
       "projectId": "4",
-      "columnIds": ["todo-4", "inProgress-4", "completed-4"]
+      "columnIds": [
+        "todo-4",
+        "inProgress-4",
+        "completed-4"
+      ]
+    },
+    {
+      "id": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "projectId": "535d0afa-72c0-4009-96fb-e944bb56d17a",
+      "columnIds": [
+        "todo-8f0ff217-3281-4ea2-85c4-e383d6dbcc70",
+        "inProgress-d2b8ae10-c5a8-4b2d-893f-554fa126af29",
+        "completed-3d4a3760-0381-4224-9291-5d95fab27000"
+      ]
     }
   ],
   "projects": [
@@ -82,6 +107,16 @@
       "teamId": "2",
       "boardId": "board-4",
       "archived": false
+    },
+    {
+      "id": "535d0afa-72c0-4009-96fb-e944bb56d17a",
+      "name": "New Project",
+      "emoji": "💥",
+      "description": "This is the new Project",
+      "status": "Active",
+      "owner": "xyz",
+      "teamId": "1",
+      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1"
     }
   ],
   "tasks": [
@@ -128,21 +163,51 @@
       "boardId": "board-1",
       "title": "To Do",
       "emoji": "📝",
-      "taskIds": ["1", "2"]
+      "taskIds": [
+        "1",
+        "2"
+      ]
     },
     {
       "id": "inProgress-1",
       "boardId": "board-1",
       "title": "In Progress",
       "emoji": "🔄",
-      "taskIds": ["3", "4"]
+      "taskIds": [
+        "3",
+        "4"
+      ]
     },
     {
       "id": "completed-1",
       "boardId": "board-1",
       "title": "Completed",
       "emoji": "✅",
-      "taskIds": ["5", "6"]
+      "taskIds": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "todo-cf4ca470-7fd0-40d9-b501-638b90820301",
+      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": []
+    },
+    {
+      "id": "inProgress-32d6c505-bbdf-4ff4-985f-9006c010b846",
+      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
+    },
+    {
+      "id": "completed-f4cf4598-c09d-43f8-817b-8502afb6dce4",
+      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
     }
   ],
   "teams": [
@@ -150,21 +215,34 @@
       "id": "1",
       "name": "Dev Warriors",
       "emoji": "🧑‍💻",
-      "members": ["123"],
-      "projectIds": ["1", "2"]
+      "members": [
+        "123"
+      ],
+      "projectIds": [
+        "1",
+        "2",
+        "535d0afa-72c0-4009-96fb-e944bb56d17a"
+      ]
     },
     {
       "id": "2",
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
-      "members": ["123"],
-      "projectIds": ["3", "4"]
+      "members": [
+        "123"
+      ],
+      "projectIds": [
+        "3",
+        "4"
+      ]
     },
     {
       "id": "733346fd-fe71-4531-940c-fbc42846a851",
       "name": "natours123",
       "emoji": "🖐️",
-      "members": ["123"],
+      "members": [
+        "123"
+      ],
       "projectIds": []
     }
   ]
