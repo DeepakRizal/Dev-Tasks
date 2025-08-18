@@ -7,6 +7,9 @@ import { can } from "../../utils/permission";
 import { useState } from "react";
 import DeleteModal from "../modals/DeleteModal";
 import AddProjectModal from "../modals/AddProjectModal";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
+import { deleteProject } from "../../store/features/project/projectThunks";
 
 interface ProjectProps {
   project: Project;
@@ -16,6 +19,7 @@ interface ProjectProps {
 const ProjectCard = ({ project, projectId }: ProjectProps) => {
   const { teamId } = useParams();
   const role = useRole();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -24,7 +28,9 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
     setIsEditOpen(true);
   }
 
-  function handleDelete() {}
+  function handleDelete() {
+    setIsDeleteOpen(true);
+  }
 
   return (
     <div
@@ -68,9 +74,9 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
       </div>
       {isDeleteOpen && (
         <DeleteModal
-          id={project.id}
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}
+          onConfirm={() => dispatch(deleteProject(project.id))}
         />
       )}
 

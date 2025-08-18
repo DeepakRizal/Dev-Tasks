@@ -7,6 +7,9 @@ import DeleteModal from "../modals/DeleteModal";
 import AddTeamModal from "../modals/AddTeamModal";
 import { useRole } from "../../hooks/useRole";
 import { can } from "../../utils/permission";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
+import { deleteTeam } from "../../store/features/teams/teamThunks";
 
 interface TeamCardProps {
   team: Team;
@@ -15,6 +18,7 @@ interface TeamCardProps {
 const TeamCard = ({ team }: TeamCardProps) => {
   const navigate = useNavigate();
   const role = useRole();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -58,9 +62,9 @@ const TeamCard = ({ team }: TeamCardProps) => {
 
       {isDeleteOpen && (
         <DeleteModal
-          id={team.id}
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}
+          onConfirm={() => dispatch(deleteTeam(team.id))}
         />
       )}
 

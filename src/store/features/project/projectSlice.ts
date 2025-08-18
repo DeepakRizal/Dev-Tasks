@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../../../types/team";
 import {
   createProject,
+  deleteProject,
   getAllProjectsOfATeam,
   updateProject,
 } from "./projectThunks";
@@ -34,12 +35,12 @@ const projectSlice = createSlice({
     //     Object.assign(project, updates);
     //   }
     // },
-    deleteProject(state, action: PayloadAction<string>) {
-      state.projects = state.projects.filter((p) => p.id !== action.payload);
-      if (state.currentProjectId === action.payload) {
-        state.currentProjectId = null;
-      }
-    },
+    // deleteProject(state, action: PayloadAction<string>) {
+    //   state.projects = state.projects.filter((p) => p.id !== action.payload);
+    //   if (state.currentProjectId === action.payload) {
+    //     state.currentProjectId = null;
+    //   }
+    // },
     setCurrentProject(state, action: PayloadAction<string | null>) {
       state.currentProjectId = action.payload;
     },
@@ -88,10 +89,24 @@ const projectSlice = createSlice({
       .addCase(createProject.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(deleteProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        state.loading = false;
+        state.projects = state.projects.filter(
+          (project) => project.id !== action.payload
+        );
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
-export const { deleteProject, setCurrentProject } = projectSlice.actions;
+export const { setCurrentProject } = projectSlice.actions;
 
 export default projectSlice.reducer;

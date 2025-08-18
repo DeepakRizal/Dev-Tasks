@@ -1,21 +1,13 @@
-import { useDispatch } from "react-redux";
-import { deleteTeam } from "../../store/features/teams/teamThunks";
 import ModalFormWrapper from "../../utils/common/ModalFormWrapper";
 import Button from "../ui/Button";
-import type { AppDispatch } from "../../store/store";
 
 interface DeleteModalProps {
-  id: string;
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  onConfirm: () => void;
 }
 
-const DeleteModal = ({ id, isOpen, setIsOpen }: DeleteModalProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-  function handleDelete() {
-    dispatch(deleteTeam(id));
-  }
-
+const DeleteModal = ({ isOpen, setIsOpen, onConfirm }: DeleteModalProps) => {
   return (
     <ModalFormWrapper
       isOpen={isOpen}
@@ -27,7 +19,14 @@ const DeleteModal = ({ id, isOpen, setIsOpen }: DeleteModalProps) => {
           variant="neutral"
           onClick={() => setIsOpen(false)}
         />
-        <Button text="Delete" variant="primary" onClick={handleDelete} />
+        <Button
+          text="Delete"
+          variant="primary"
+          onClick={() => {
+            onConfirm();
+            setIsOpen(false);
+          }}
+        />
       </div>
     </ModalFormWrapper>
   );

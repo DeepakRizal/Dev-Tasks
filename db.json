@@ -70,6 +70,33 @@
         "inProgress-b9306aae-ca45-4b3f-aee3-5844cd547aab",
         "completed-589a751a-0b5a-4c73-8da3-d4d9d5ff4944"
       ]
+    },
+    {
+      "id": "ae384495-ca20-4dd1-b639-d26a77c90565",
+      "projectId": null,
+      "columnIds": [
+        "todo-b829a4e8-33f4-4b5e-ba21-c384c8407f8c",
+        "inProgress-ef1fddcb-5cee-482b-a43d-2d9a5cb63241",
+        "completed-a6c37de5-4eee-4ea9-8770-a04a1b59f88b"
+      ]
+    },
+    {
+      "id": "986e8c5c-ddcd-4f8f-9d2d-05431d4af063",
+      "projectId": null,
+      "columnIds": [
+        "todo-1426d88c-b6d5-4122-b33d-ad437cf52c24",
+        "inProgress-c7f72beb-1374-4589-a082-54730ee8ee59",
+        "completed-6e991845-ca61-4371-8e80-8a0eefc13f31"
+      ]
+    },
+    {
+      "id": "e948f240-9f2a-4a3e-b86f-04c6211f5664",
+      "projectId": null,
+      "columnIds": [
+        "todo-4552da0e-e510-4100-afea-83755dcffa6e",
+        "inProgress-2aeea95f-3618-498a-a9d1-09dd3c43e419",
+        "completed-5133a211-dd18-4f9e-9bc4-6630cdebab95"
+      ]
     }
   ],
   "projects": [
@@ -248,6 +275,69 @@
       "title": "Completed",
       "emoji": "✅",
       "taskIds": []
+    },
+    {
+      "id": "todo-6c643873-fa05-4696-a4ad-0dbe87ab0780",
+      "boardId": "ae384495-ca20-4dd1-b639-d26a77c90565",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": []
+    },
+    {
+      "id": "inProgress-07e4e0c5-0401-487a-a326-368edda394f4",
+      "boardId": "ae384495-ca20-4dd1-b639-d26a77c90565",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
+    },
+    {
+      "id": "completed-2e27e747-8630-4a8d-98e8-e6162cd33f09",
+      "boardId": "ae384495-ca20-4dd1-b639-d26a77c90565",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
+    },
+    {
+      "id": "todo-997ed91c-2f39-4229-93fc-92537688910b",
+      "boardId": "986e8c5c-ddcd-4f8f-9d2d-05431d4af063",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": []
+    },
+    {
+      "id": "inProgress-1d991403-9c51-477b-b600-311dd37a72e8",
+      "boardId": "986e8c5c-ddcd-4f8f-9d2d-05431d4af063",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
+    },
+    {
+      "id": "completed-cc4dbd81-1faa-4bcb-aba7-82b94f4f6df0",
+      "boardId": "986e8c5c-ddcd-4f8f-9d2d-05431d4af063",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
+    },
+    {
+      "id": "todo-96ebb453-d8f5-4829-a403-877bba0c8f45",
+      "boardId": "e948f240-9f2a-4a3e-b86f-04c6211f5664",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": []
+    },
+    {
+      "id": "completed-86ad07bd-b031-4ec1-9a58-1bab9e9d3adf",
+      "boardId": "e948f240-9f2a-4a3e-b86f-04c6211f5664",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
+    },
+    {
+      "id": "inProgress-2895b3e9-ca9b-4ce3-87c4-bb050ccad665",
+      "boardId": "e948f240-9f2a-4a3e-b86f-04c6211f5664",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
     }
   ],
   "teams": [
@@ -261,7 +351,10 @@
       "projectIds": [
         "1",
         "2",
-        "535d0afa-72c0-4009-96fb-e944bb56d17a"
+        "535d0afa-72c0-4009-96fb-e944bb56d17a",
+        "5fcd5da3-8c67-4231-abd0-e9462e403315",
+        "5207f040-85a4-48a6-abd3-941b2a3f248d",
+        "06b501c7-c311-4648-a34e-81fdd78c0544"
       ]
     },
     {
