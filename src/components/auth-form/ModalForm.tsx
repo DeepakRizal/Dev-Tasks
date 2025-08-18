@@ -1,4 +1,4 @@
-import type { Team } from "../../types/team";
+import type { Project, Team } from "../../types/team";
 import Button from "../ui/Button";
 import FormInput from "./FormInput";
 import React from "react";
@@ -19,6 +19,7 @@ interface ModalFormProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitText: string;
   team?: Team;
+  project?: Project;
 }
 
 const ModalForm = ({

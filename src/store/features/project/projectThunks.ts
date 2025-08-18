@@ -23,6 +23,25 @@ export const createProject = createAsyncThunk(
   }
 );
 
+export const updateProject = createAsyncThunk(
+  "projects/updateProject",
+  async (data: Partial<Project>, thunkApi) => {
+    try {
+      const updatedProject = await projectService.updateProject(data);
+      return updatedProject;
+    } catch (error) {
+      let message = "Something went wrong!";
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
 export const archiveProject = createAsyncThunk(
   "projects/archiveProject",
   async (data: Partial<Project>, thunkApi) => {

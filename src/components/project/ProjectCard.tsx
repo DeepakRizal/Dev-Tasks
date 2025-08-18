@@ -4,6 +4,9 @@ import { ClipboardList, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
 import { useRole } from "../../hooks/useRole";
 import { can } from "../../utils/permission";
+import { useState } from "react";
+import DeleteModal from "../modals/DeleteModal";
+import AddProjectModal from "../modals/AddProjectModal";
 
 interface ProjectProps {
   project: Project;
@@ -14,7 +17,12 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
   const { teamId } = useParams();
   const role = useRole();
 
-  function handleEdit() {}
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+
+  function handleEdit() {
+    setIsEditOpen(true);
+  }
 
   function handleDelete() {}
 
@@ -58,6 +66,24 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
           </>
         )}
       </div>
+      {isDeleteOpen && (
+        <DeleteModal
+          id={project.id}
+          isOpen={isDeleteOpen}
+          setIsOpen={setIsDeleteOpen}
+        />
+      )}
+
+      {/* Add the edit modal */}
+      {isEditOpen && (
+        <AddProjectModal
+          isOpen={isEditOpen}
+          setIsOpen={setIsEditOpen}
+          project={project}
+          isEditMode={true}
+          teamId={teamId as string}
+        />
+      )}
     </div>
   );
 };

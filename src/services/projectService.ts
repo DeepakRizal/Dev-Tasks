@@ -9,6 +9,13 @@ export const projectService = {
 
     return newProject;
   },
+  async updateProject(data: Partial<Project>) {
+    const res = await api.put(`/projects/${data.id}`, data);
+
+    const updatedProject = res.data;
+
+    return updatedProject;
+  },
   async archiveProject(data: Partial<Project>) {
     const res = await api.put("/projects", data);
 

@@ -119,9 +119,9 @@
     },
     {
       "id": "535d0afa-72c0-4009-96fb-e944bb56d17a",
-      "name": "New Project",
-      "emoji": "💥",
-      "description": "This is the new Project",
+      "name": "Bitcoin",
+      "emoji": "🏜️",
+      "description": "This is a project about crypto",
       "status": "Active",
       "owner": "xyz",
       "teamId": "1",

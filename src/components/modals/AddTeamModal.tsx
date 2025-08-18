@@ -68,7 +68,7 @@ const AddTeamModal = ({
     if (isEditMode && team) {
       setForm({
         name: team.name,
-        emoji: team.emoji || "", // Provide fallback for undefined
+        emoji: team.emoji || "",
       });
     }
   }, [team, isEditMode, setForm]);
