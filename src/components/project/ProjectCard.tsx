@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import type { Project } from "../../types/team";
-import { ClipboardList, SquarePen, Trash } from "lucide-react";
+import { Archive, ClipboardList, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
 import { useRole } from "../../hooks/useRole";
 import { can } from "../../utils/permission";
@@ -9,14 +9,19 @@ import DeleteModal from "../modals/DeleteModal";
 import AddProjectModal from "../modals/AddProjectModal";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../store/store";
-import { deleteProject } from "../../store/features/project/projectThunks";
+import {
+  archiveProject,
+  deleteProject,
+  restoreProject,
+} from "../../store/features/project/projectThunks";
 
 interface ProjectProps {
   project: Project;
   projectId: string;
+  isArchive?: boolean;
 }
 
-const ProjectCard = ({ project, projectId }: ProjectProps) => {
+const ProjectCard = ({ project, projectId, isArchive }: ProjectProps) => {
   const { teamId } = useParams();
   const role = useRole();
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +37,21 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
     setIsDeleteOpen(true);
   }
 
+  function handleArchive() {
+    dispatch(
+      archiveProject({ id: projectId, project: { ...project, archived: true } })
+    );
+  }
+
+  function handleRestore() {
+    dispatch(
+      restoreProject({
+        id: projectId,
+        project: { ...project, archived: false },
+      })
+    );
+  }
+
   return (
     <div
       key={project.id}
@@ -45,30 +65,54 @@ const ProjectCard = ({ project, projectId }: ProjectProps) => {
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <Button
-          to={`/teams/${teamId}/project/${projectId}`}
-          icon={<ClipboardList size={15} />}
-          text="View Board"
-          variant="secondary"
-          size="sm"
-        />
+        {!isArchive && (
+          <Button
+            to={`/teams/${teamId}/project/${projectId}`}
+            icon={<ClipboardList size={15} />}
+            text="View Board"
+            variant="secondary"
+            size="sm"
+          />
+        )}
         {role && can.manageProjects(role) && (
           <>
-            <Button
-              text="Edit"
-              icon={<SquarePen size={15} />}
-              variant="neutral"
-              size="sm"
-              onClick={handleEdit}
-            />
-            <Button
-              text="Delete"
-              icon={<Trash size={15} />}
-              variant="accent"
-              className="bg-red-500 hover:bg-red-600"
-              size="sm"
-              onClick={handleDelete}
-            />
+            {isArchive && (
+              <Button
+                text="Restore"
+                icon={<Archive size={15} />}
+                variant="primary"
+                size="sm"
+                className="bg-slate-400 hover:bg-slate-500"
+                onClick={handleRestore}
+              />
+            )}
+            {!isArchive && (
+              <>
+                <Button
+                  text="Archive"
+                  icon={<Archive size={15} />}
+                  variant="primary"
+                  size="sm"
+                  className="bg-slate-400 hover:bg-slate-500"
+                  onClick={handleArchive}
+                />
+                <Button
+                  text="Edit"
+                  icon={<SquarePen size={15} />}
+                  variant="neutral"
+                  size="sm"
+                  onClick={handleEdit}
+                />
+                <Button
+                  text="Delete"
+                  icon={<Trash size={15} />}
+                  variant="accent"
+                  className="bg-red-500 hover:bg-red-600"
+                  size="sm"
+                  onClick={handleDelete}
+                />
+              </>
+            )}
           </>
         )}
       </div>

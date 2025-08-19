@@ -1,9 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../../../types/team";
 import {
+  archiveProject,
   createProject,
   deleteProject,
   getAllProjectsOfATeam,
+  restoreProject,
   updateProject,
 } from "./projectThunks";
 
@@ -47,6 +49,40 @@ const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(archiveProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(archiveProject.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedProjectIndex = state.projects.findIndex(
+          (project) => project.id === action.payload.id
+        );
+        if (updatedProjectIndex !== -1) {
+          state.projects[updatedProjectIndex] = action.payload;
+        }
+      })
+      .addCase(archiveProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(restoreProject.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(restoreProject.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedProjectIndex = state.projects.findIndex(
+          (project) => project.id === action.payload.id
+        );
+        if (updatedProjectIndex !== -1) {
+          state.projects[updatedProjectIndex] = action.payload;
+        }
+      })
+      .addCase(restoreProject.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(updateProject.pending, (state) => {
         state.loading = true;
         state.error = null;

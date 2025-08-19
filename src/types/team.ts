@@ -7,6 +7,7 @@ export interface Project {
   owner: string;
   teamId: string;
   boardId: string;
+  archived: boolean;
 }
 
 export interface Task {

@@ -16,15 +16,15 @@ export const projectService = {
 
     return updatedProject;
   },
-  async archiveProject(data: Partial<Project>) {
-    const res = await api.put("/projects", data);
+  async archiveProject(id: string, data: Partial<Project>) {
+    const res = await api.put(`/projects/${id}`, data);
 
     const updatedProject = res.data;
 
     return updatedProject;
   },
-  async restoreProject(data: Partial<Project>) {
-    const res = await api.put("/projects", data);
+  async restoreProject(id: string, data: Partial<Project>) {
+    const res = await api.put(`/projects/${id}`, data);
 
     const updatedProject = res.data;
 
@@ -46,7 +46,7 @@ export const projectService = {
   },
 
   async getAllProjects() {
-    const res = await api.get("/users");
+    const res = await api.get("/projects");
     const allProjects = res.data;
     return allProjects;
   },

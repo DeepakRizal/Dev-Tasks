@@ -44,9 +44,12 @@ export const updateProject = createAsyncThunk(
 
 export const archiveProject = createAsyncThunk(
   "projects/archiveProject",
-  async (data: Partial<Project>, thunkApi) => {
+  async (data: { id: string; project: Partial<Project> }, thunkApi) => {
     try {
-      const updatedProject = await projectService.archiveProject(data);
+      const updatedProject = await projectService.archiveProject(
+        data.id,
+        data.project
+      );
       return updatedProject;
     } catch (error) {
       let message = "Something went wrong!";
@@ -63,9 +66,12 @@ export const archiveProject = createAsyncThunk(
 
 export const restoreProject = createAsyncThunk(
   "projects/restoreProject",
-  async (data: Partial<Project>, thunkApi) => {
+  async (data: { id: string; project: Partial<Project> }, thunkApi) => {
     try {
-      const updatedProject = await projectService.restoreProject(data);
+      const updatedProject = await projectService.restoreProject(
+        data.id,
+        data.project
+      );
       return updatedProject;
     } catch (error) {
       let message = "Something went wrong!";

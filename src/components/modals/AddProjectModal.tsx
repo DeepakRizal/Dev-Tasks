@@ -98,6 +98,7 @@ const AddProjectModal = ({
           description: form.description,
           status: "Active",
           owner: currentUser?.name as string,
+          archived: false,
           teamId,
           boardId,
         };

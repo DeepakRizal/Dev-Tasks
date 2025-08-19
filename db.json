@@ -97,20 +97,18 @@
         "inProgress-2aeea95f-3618-498a-a9d1-09dd3c43e419",
         "completed-5133a211-dd18-4f9e-9bc4-6630cdebab95"
       ]
+    },
+    {
+      "id": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
+      "projectId": "3e9d6921-b754-4661-9057-2fecf88216c3",
+      "columnIds": [
+        "todo-a79eb73d-4787-47b9-aa51-e22c29b78e28",
+        "inProgress-0b3134fa-9fde-4ef6-8f8c-4f2e02952785",
+        "completed-81b4a20a-a213-49fb-9563-930116340e52"
+      ]
     }
   ],
   "projects": [
-    {
-      "id": "1",
-      "name": "DevForge Clone",
-      "emoji": "🔧",
-      "description": "A comprehensive development platform clone",
-      "owner": "xyz",
-      "status": "Active",
-      "teamId": "1",
-      "boardId": "board-1",
-      "archived": false
-    },
     {
       "id": "2",
       "name": "Portfolio Redesign",
@@ -120,7 +118,7 @@
       "status": "Active",
       "teamId": "1",
       "boardId": "board-2",
-      "archived": false
+      "archived": true
     },
     {
       "id": "3",
@@ -163,6 +161,17 @@
       "owner": "xyz",
       "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
       "boardId": "0aaceae6-01ea-4743-bbdd-c62e19877739"
+    },
+    {
+      "id": "3e9d6921-b754-4661-9057-2fecf88216c3",
+      "name": "natours",
+      "emoji": "🧑‍💻",
+      "description": "this is website to assist traveling",
+      "status": "Active",
+      "owner": "xyz",
+      "archived": false,
+      "teamId": "1",
+      "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17"
     }
   ],
   "tasks": [
@@ -338,6 +347,27 @@
       "title": "In Progress",
       "emoji": "🔄",
       "taskIds": []
+    },
+    {
+      "id": "todo-5ef2a829-c0ae-472c-b3e4-1a002f9b9626",
+      "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": []
+    },
+    {
+      "id": "inProgress-c627dd31-864a-4c7e-890b-b970dbf50375",
+      "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
+    },
+    {
+      "id": "completed-598798c8-47f9-4f1a-a2fc-0a830d37dc95",
+      "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
     }
   ],
   "teams": [
@@ -354,7 +384,8 @@
         "535d0afa-72c0-4009-96fb-e944bb56d17a",
         "5fcd5da3-8c67-4231-abd0-e9462e403315",
         "5207f040-85a4-48a6-abd3-941b2a3f248d",
-        "06b501c7-c311-4648-a34e-81fdd78c0544"
+        "06b501c7-c311-4648-a34e-81fdd78c0544",
+        "3e9d6921-b754-4661-9057-2fecf88216c3"
       ]
     },
     {

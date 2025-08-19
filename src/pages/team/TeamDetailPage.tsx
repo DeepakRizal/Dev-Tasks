@@ -2,11 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import type { AppDispatch, RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
-import { Plus, SquarePen } from "lucide-react";
+import { ArchiveRestore, Plus, SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
 import { getAllProjectsOfATeam } from "../../store/features/project/projectThunks";
+import ArchiveModal from "../../components/modals/ArchiveModal";
 
 const TeamDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +16,7 @@ const TeamDetailPage = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const { teamId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [isArchiveOpen, setIsArchiveOpen] = useState(false);
 
   const team = teams.find((team) => team.id === teamId);
 
@@ -36,6 +38,10 @@ const TeamDetailPage = () => {
         </div>
       </div>
     );
+  }
+
+  function handleSeeArchives() {
+    setIsArchiveOpen(true);
   }
 
   function handleEditName() {}
@@ -88,13 +94,25 @@ const TeamDetailPage = () => {
                 </div>
               </div>
             </div>
-            <Button
-              text="Edit Team Name"
-              icon={<SquarePen />}
-              size="md"
-              variant="neutral"
-              onClick={handleEditName}
-            />
+
+            <div className="flex items-center gap-5">
+              <Button
+                text="See Archives"
+                size="sm"
+                variant="primary"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold"
+                icon={<ArchiveRestore size={15} />}
+                onClick={handleSeeArchives}
+              />
+
+              <Button
+                text="Edit Team Name"
+                icon={<SquarePen size={15} />}
+                size="sm"
+                variant="neutral"
+                onClick={handleEditName}
+              />
+            </div>
           </div>
         </div>
 
@@ -143,13 +161,17 @@ const TeamDetailPage = () => {
           </h2>
           <div className="space-y-3">
             {projects.length > 0 &&
-              projects.map((project) => (
-                <ProjectCard
-                  project={project}
-                  key={project.id}
-                  projectId={project.id}
-                />
-              ))}
+              projects.map((project) => {
+                if (!project.archived) {
+                  return (
+                    <ProjectCard
+                      project={project}
+                      key={project.id}
+                      projectId={project.id}
+                    />
+                  );
+                }
+              })}
             {projects.length === 0 && (
               <p className="text-center text-2xl font-bold">
                 No Projects to show for this team
@@ -168,6 +190,9 @@ const TeamDetailPage = () => {
           icon={<Plus className="w-5 h-5" />}
         />
       </div>
+      {isArchiveOpen && (
+        <ArchiveModal isOpen={isArchiveOpen} setIsOpen={setIsArchiveOpen} />
+      )}
 
       {isOpen && (
         <AddProjectModal
