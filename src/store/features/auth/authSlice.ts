@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { LoginCredentials, User } from "../../../types/auth";
 import authService from "../../../services/authService";
+import { setItemToStorage } from "../../../utils/localstorage";
 
 interface AuthState {
   currentUser: User | null;
@@ -59,7 +60,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login(state, action: { payload: User }) {
+    setUser(state, action: { payload: User }) {
       state.currentUser = action.payload;
     },
     logout(state) {
@@ -74,6 +75,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
+        setItemToStorage("user", action.payload);
         state.currentUser = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -86,6 +88,7 @@ const authSlice = createSlice({
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
+        setItemToStorage("user", action.payload);
         state.currentUser = action.payload;
       })
       .addCase(signupUser.rejected, (state, action) => {
@@ -95,6 +98,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

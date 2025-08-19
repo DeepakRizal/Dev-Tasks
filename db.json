@@ -118,7 +118,7 @@
       "status": "Active",
       "teamId": "1",
       "boardId": "board-2",
-      "archived": true
+      "archived": false
     },
     {
       "id": "3",
@@ -150,7 +150,8 @@
       "status": "Active",
       "owner": "xyz",
       "teamId": "1",
-      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1"
+      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "archived": false
     },
     {
       "id": "35066a5b-4d03-413a-b9a7-b1993fffa470",

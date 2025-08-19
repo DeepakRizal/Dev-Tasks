@@ -23,6 +23,7 @@ const UserSideBar = ({
   }
 
   function handleLogout() {
+    localStorage.removeItem("user");
     dispatch(logout());
     navigate("/");
   }
