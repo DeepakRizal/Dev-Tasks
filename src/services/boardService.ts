@@ -8,4 +8,17 @@ export const boardService = {
 
     return newBoard;
   },
+  async deleteBoard(boardId: string) {
+    await api.delete(`/boards/${boardId}`);
+
+    return boardId;
+  },
+
+  async getAllBoards() {
+    const res = await api.get("/boards");
+
+    const data = res.data;
+
+    return data;
+  },
 };

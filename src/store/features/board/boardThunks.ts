@@ -21,3 +21,42 @@ export const createBoard = createAsyncThunk(
     }
   }
 );
+
+export const deleteBoard = createAsyncThunk(
+  "boards/deleteBoard",
+  async (projectId: string, thunkApi) => {
+    try {
+      const deleteId = await boardService.deleteBoard(projectId);
+      return deleteId;
+    } catch (error) {
+      let message = "Something went wrong!";
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const getAllBoards = createAsyncThunk(
+  "boards/getAllBoards",
+  async (_, thunkApi) => {
+    try {
+      const boardsData = await boardService.getAllBoards();
+
+      return boardsData;
+    } catch (error) {
+      let message = "Something went wrong!";
+
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

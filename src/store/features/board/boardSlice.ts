@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Board } from "../../../types/team";
-import { createBoard } from "./boardThunks";
+import { createBoard, deleteBoard } from "./boardThunks";
 
 interface BoardState {
   boards: Board[];
@@ -51,12 +51,12 @@ const boardSlice = createSlice({
         Object.assign(board, updates);
       }
     },
-    deleteBoard(state, action: PayloadAction<string>) {
-      state.boards = state.boards.filter((b) => b.id !== action.payload);
-      if (state.currentBoardId === action.payload) {
-        state.currentBoardId = null;
-      }
-    },
+    // deleteBoard(state, action: PayloadAction<string>) {
+    //   state.boards = state.boards.filter((b) => b.id !== action.payload);
+    //   if (state.currentBoardId === action.payload) {
+    //     state.currentBoardId = null;
+    //   }
+    // },
     setCurrentBoard(state, action: PayloadAction<string | null>) {
       state.currentBoardId = action.payload;
     },
@@ -74,10 +74,25 @@ const boardSlice = createSlice({
       .addCase(createBoard.rejected, (state, action) => {
         state.loading = true;
         state.error = action.payload as string;
+      })
+      .addCase(deleteBoard.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteBoard.fulfilled, (state, action) => {
+        state.loading = false;
+        state.boards = state.boards.filter((b) => b.id !== action.payload);
+        if (state.currentBoardId === action.payload) {
+          state.currentBoardId = null;
+        }
+      })
+      .addCase(deleteBoard.rejected, (state, action) => {
+        state.loading = true;
+        state.error = action.payload as string;
       });
   },
 });
 
-export const { updateBoard, deleteBoard, setCurrentBoard } = boardSlice.actions;
+export const { updateBoard, setCurrentBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

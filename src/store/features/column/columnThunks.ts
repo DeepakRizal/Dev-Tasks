@@ -22,3 +22,22 @@ export const createColumn = createAsyncThunk(
     }
   }
 );
+
+export const deleteColumn = createAsyncThunk(
+  "columns/deleteColumn",
+  async (columnId: string, thunkApi) => {
+    try {
+      const deletedId = await columnService.deleteColumn(columnId);
+      return deletedId;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

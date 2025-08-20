@@ -8,6 +8,7 @@ import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
 import { getAllProjectsOfATeam } from "../../store/features/project/projectThunks";
 import ArchiveModal from "../../components/modals/ArchiveModal";
+import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 
 const TeamDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +22,7 @@ const TeamDetailPage = () => {
   const team = teams.find((team) => team.id === teamId);
 
   useEffect(() => {
+    dispatch(fetchAllTeams());
     dispatch(getAllProjectsOfATeam(teamId as string));
   }, [dispatch, teamId]);
 

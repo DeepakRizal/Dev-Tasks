@@ -9,4 +9,10 @@ export const columnService = {
 
     return newColumn;
   },
+
+  async deleteColumn(columnId: string) {
+    await api.delete(`/columns/${columnId}`);
+
+    return columnId;
+  },
 };

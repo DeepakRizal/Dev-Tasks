@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Column, Task } from "../../../types/team";
-import { createColumn } from "../column/columnThunks";
+import { createColumn, deleteColumn } from "../column/columnThunks";
 
 interface TaskState {
   tasks: Task[];
@@ -150,13 +150,13 @@ const taskSlice = createSlice({
         Object.assign(column, updates);
       }
     },
-    deleteColumn(state, action: PayloadAction<string>) {
-      const columnId = action.payload;
-      state.columns = state.columns.filter((col) => col.id !== columnId);
+    // deleteColumn(state, action: PayloadAction<string>) {
+    //   const columnId = action.payload;
+    //   state.columns = state.columns.filter((col) => col.id !== columnId);
 
-      // Remove tasks that belong to this column
-      state.tasks = state.tasks.filter((task) => task.columnId !== columnId);
-    },
+    //   // Remove tasks that belong to this column
+    //   state.tasks = state.tasks.filter((task) => task.columnId !== columnId);
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -171,6 +171,23 @@ const taskSlice = createSlice({
       .addCase(createColumn.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(deleteColumn.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteColumn.fulfilled, (state, action) => {
+        state.loading = false;
+
+        const columnId = action.payload;
+        state.columns = state.columns.filter((col) => col.id !== columnId);
+
+        // Remove tasks that belong to this column
+        state.tasks = state.tasks.filter((task) => task.columnId !== columnId);
+      })
+      .addCase(deleteColumn.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
@@ -182,7 +199,6 @@ export const {
   moveTask,
   addColumn,
   updateColumn,
-  deleteColumn,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

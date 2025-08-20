@@ -4,16 +4,21 @@ import { Archive, ClipboardList, SquarePen, Trash } from "lucide-react";
 import Button from "../ui/Button";
 import { useRole } from "../../hooks/useRole";
 import { can } from "../../utils/permission";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteModal from "../modals/DeleteModal";
 import AddProjectModal from "../modals/AddProjectModal";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
 import {
   archiveProject,
   deleteProject,
   restoreProject,
 } from "../../store/features/project/projectThunks";
+import {
+  deleteBoard,
+  getAllBoards,
+} from "../../store/features/board/boardThunks";
+import { deleteColumn } from "../../store/features/column/columnThunks";
 
 interface ProjectProps {
   project: Project;
@@ -25,6 +30,13 @@ const ProjectCard = ({ project, projectId, isArchive }: ProjectProps) => {
   const { teamId } = useParams();
   const role = useRole();
   const dispatch = useDispatch<AppDispatch>();
+  const boards = useSelector((state: RootState) => state.board.boards);
+
+  const board = boards.find((board) => board.projectId === project.id);
+
+  const columnId1 = board?.columnIds[0];
+  const columnId2 = board?.columnIds[1];
+  const columnId3 = board?.columnIds[2];
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -51,6 +63,10 @@ const ProjectCard = ({ project, projectId, isArchive }: ProjectProps) => {
       })
     );
   }
+
+  useEffect(() => {
+    dispatch(getAllBoards());
+  }, [dispatch]);
 
   return (
     <div
@@ -120,7 +136,13 @@ const ProjectCard = ({ project, projectId, isArchive }: ProjectProps) => {
         <DeleteModal
           isOpen={isDeleteOpen}
           setIsOpen={setIsDeleteOpen}
-          onConfirm={() => dispatch(deleteProject(project.id))}
+          onConfirm={() => {
+            dispatch(deleteProject(project.id));
+            dispatch(deleteBoard(project.boardId));
+            dispatch(deleteColumn(columnId1 as string));
+            dispatch(deleteColumn(columnId2 as string));
+            dispatch(deleteColumn(columnId3 as string));
+          }}
         />
       )}
 
