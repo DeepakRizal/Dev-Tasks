@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import AddTeamModal from "../../components/modals/AddTeamModal";
 import TeamCard from "../../components/teams/TeamCard";
 import Button from "../../components/ui/Button";
-import { Plus } from "lucide-react";
+import { Plus, Users } from "lucide-react";
 import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 import { useRole } from "../../hooks/useRole";
+import JoinTeamModal from "../../components/modals/JoinTeamModal";
+
+// Add state for join modal
 
 const Dashboard = () => {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const teams = useSelector((state: RootState) => state.team.teams);
   const [isOpen, setIsOpen] = useState(false);
+  const [isJoinOpen, setIsJoinOpen] = useState(false);
   const role = useRole();
 
   const dispatch = useDispatch<AppDispatch>();
@@ -50,6 +54,13 @@ const Dashboard = () => {
               size="sm"
               icon={<Plus className="w-5 h-5" />}
             />
+            <Button
+              variant="secondary"
+              onClick={() => setIsJoinOpen(true)}
+              text="Join Team"
+              size="sm"
+              icon={<Users className="w-5 h-5" />}
+            />
           </div>
         </div>
         <div className="mb-8">
@@ -82,6 +93,9 @@ const Dashboard = () => {
         </div>
       </div>
       {isOpen && <AddTeamModal isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isJoinOpen && (
+        <JoinTeamModal isOpen={isJoinOpen} setIsOpen={setIsJoinOpen} />
+      )}
     </div>
   );
 };

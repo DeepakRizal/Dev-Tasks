@@ -6,6 +6,9 @@ import {
   deleteTeam,
   updateTeam,
   addProjectToTeam,
+  generateInviteCode,
+  joinTeamByInviteCode,
+  sendInvitation,
 } from "./teamThunks";
 
 interface TeamState {
@@ -107,6 +110,53 @@ const teamSlice = createSlice({
         }
       })
       .addCase(addProjectToTeam.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(generateInviteCode.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(generateInviteCode.fulfilled, (state, action) => {
+        state.loading = false;
+        const teamIndex = state.teams.findIndex(
+          (team) => team.id === action.payload.id
+        );
+        if (teamIndex !== -1) {
+          state.teams[teamIndex] = action.payload;
+        }
+      })
+      .addCase(generateInviteCode.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(joinTeamByInviteCode.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(joinTeamByInviteCode.fulfilled, (state, action) => {
+        state.loading = false;
+        const teamIndex = state.teams.findIndex(
+          (team) => team.id === action.payload.id
+        );
+        if (teamIndex !== -1) {
+          state.teams[teamIndex] = action.payload;
+        } else {
+          state.teams.push(action.payload);
+        }
+      })
+      .addCase(joinTeamByInviteCode.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(sendInvitation.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(sendInvitation.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(sendInvitation.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

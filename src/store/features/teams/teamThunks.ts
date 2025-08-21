@@ -100,3 +100,82 @@ export const addProjectToTeam = createAsyncThunk(
     }
   }
 );
+
+export const generateInviteCode = createAsyncThunk(
+  "team/generateInviteCode",
+  async (teamId: string, thunkApi) => {
+    try {
+      // Generate a random invite code
+      const inviteCode = `${Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase()}-${Date.now().toString().slice(-4)}`;
+
+      const updatedTeam = await teamService.generateInviteCode(teamId, {
+        inviteCode,
+      });
+      return updatedTeam;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const joinTeamByInviteCode = createAsyncThunk(
+  "team/joinTeamByInviteCode",
+  async (
+    { inviteCode, userId }: { inviteCode: string; userId: string },
+    thunkApi
+  ) => {
+    try {
+      const updatedTeam = await teamService.joinTeamByInviteCode(
+        inviteCode,
+        userId
+      );
+      return updatedTeam;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
+export const sendInvitation = createAsyncThunk(
+  "team/sendInvitation",
+  async (
+    {
+      teamId,
+      email,
+      inviterName,
+    }: { teamId: string; email: string; inviterName: string },
+    thunkApi
+  ) => {
+    try {
+      const result = await teamService.sendInvitation(
+        teamId,
+        email,
+        inviterName
+      );
+      return result;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

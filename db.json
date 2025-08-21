@@ -20,17 +20,29 @@
     {
       "id": "board-2",
       "projectId": "2",
-      "columnIds": ["todo-2", "inProgress-2", "completed-2"]
+      "columnIds": [
+        "todo-2",
+        "inProgress-2",
+        "completed-2"
+      ]
     },
     {
       "id": "board-3",
       "projectId": "3",
-      "columnIds": ["todo-3", "inProgress-3", "completed-3"]
+      "columnIds": [
+        "todo-3",
+        "inProgress-3",
+        "completed-3"
+      ]
     },
     {
       "id": "board-4",
       "projectId": "4",
-      "columnIds": ["todo-4", "inProgress-4", "completed-4"]
+      "columnIds": [
+        "todo-4",
+        "inProgress-4",
+        "completed-4"
+      ]
     },
     {
       "id": "d92ae652-6750-4ead-950d-28aacb1705c1",
@@ -50,7 +62,6 @@
         "completed-589a751a-0b5a-4c73-8da3-d4d9d5ff4944"
       ]
     },
-
     {
       "id": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
       "projectId": "3e9d6921-b754-4661-9057-2fecf88216c3",
@@ -64,14 +75,9 @@
   "projects": [
     {
       "id": "2",
-      "name": "Portfolio Redesign",
-      "emoji": "🌐",
-      "description": "Modern portfolio website redesign",
-      "owner": "xyz",
-      "status": "Active",
-      "teamId": "1",
-      "boardId": "board-2",
-      "archived": false
+      "members": [
+        "95b7"
+      ]
     },
     {
       "id": "3",
@@ -97,14 +103,9 @@
     },
     {
       "id": "535d0afa-72c0-4009-96fb-e944bb56d17a",
-      "name": "Bitcoin",
-      "emoji": "🏜️",
-      "description": "This is a project about crypto",
-      "status": "Active",
-      "owner": "xyz",
-      "teamId": "1",
-      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
-      "archived": false
+      "members": [
+        "95b7"
+      ]
     },
     {
       "id": "35066a5b-4d03-413a-b9a7-b1993fffa470",
@@ -172,7 +173,6 @@
       "emoji": "✅",
       "taskIds": []
     },
-
     {
       "id": "todo-5ef2a829-c0ae-472c-b3e4-1a002f9b9626",
       "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
@@ -200,7 +200,9 @@
       "id": "1",
       "name": "Dev Warriors",
       "emoji": "🧑‍💻",
-      "members": ["123"],
+      "members": [
+        "123"
+      ],
       "projectIds": [
         "1",
         "2",
@@ -209,21 +211,31 @@
         "5207f040-85a4-48a6-abd3-941b2a3f248d",
         "06b501c7-c311-4648-a34e-81fdd78c0544",
         "3e9d6921-b754-4661-9057-2fecf88216c3"
-      ]
+      ],
+      "inviteCode": "FIA4S1-5918"
     },
     {
       "id": "2",
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
-      "members": ["123"],
-      "projectIds": ["3", "4"]
+      "members": [
+        "123"
+      ],
+      "projectIds": [
+        "3",
+        "4"
+      ]
     },
     {
       "id": "733346fd-fe71-4531-940c-fbc42846a851",
       "name": "natours123",
       "emoji": "🖐️",
-      "members": ["123"],
-      "projectIds": ["35066a5b-4d03-413a-b9a7-b1993fffa470"]
+      "members": [
+        "123"
+      ],
+      "projectIds": [
+        "35066a5b-4d03-413a-b9a7-b1993fffa470"
+      ]
     }
   ]
 }

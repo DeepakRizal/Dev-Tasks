@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import type { Team } from "../../types/team";
-import { FolderKanban, SquarePen, Trash } from "lucide-react";
+import { FolderKanban, SquarePen, Trash, Users } from "lucide-react";
 import Button from "../ui/Button";
 import { useState } from "react";
 import DeleteModal from "../modals/DeleteModal";
 import AddTeamModal from "../modals/AddTeamModal";
 import { useRole } from "../../hooks/useRole";
 import { can } from "../../utils/permission";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
 import { deleteTeam } from "../../store/features/teams/teamThunks";
+import InviteModal from "../modals/InviteModal";
 
 interface TeamCardProps {
   team: Team;
@@ -19,9 +20,11 @@ const TeamCard = ({ team }: TeamCardProps) => {
   const navigate = useNavigate();
   const role = useRole();
   const dispatch = useDispatch<AppDispatch>();
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isInviteOpen, setIsInviteOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between bg-gray-900 border border-slate-700 rounded-lg p-4 transition-colors ">
@@ -47,6 +50,14 @@ const TeamCard = ({ team }: TeamCardProps) => {
               size="sm"
               icon={<SquarePen size={15} />}
               onClick={() => setIsEditOpen(true)}
+            />
+            <Button
+              icon={<Users size={15} />}
+              text="Invite"
+              onClick={() => setIsInviteOpen(true)}
+              variant="primary"
+              size="sm"
+              className="bg-blue-500 hover:bg-blue-600"
             />
           </>
         )}
@@ -75,6 +86,15 @@ const TeamCard = ({ team }: TeamCardProps) => {
           setIsOpen={setIsEditOpen}
           team={team}
           isEditMode={true}
+        />
+      )}
+
+      {isInviteOpen && (
+        <InviteModal
+          isOpen={isInviteOpen}
+          setIsOpen={setIsInviteOpen}
+          team={team}
+          currentUserName={currentUser?.name || ""}
         />
       )}
     </div>
