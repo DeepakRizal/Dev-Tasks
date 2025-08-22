@@ -50,7 +50,11 @@ const InviteModal = ({
       alert(`Invitation sent to ${email}!`);
       setEmail("");
     } catch (error) {
-      alert("Failed to send invitation");
+      if (error instanceof Error) {
+        alert(`Failed to send invitation: ${error.message}`);
+      } else {
+        alert("Failed to send invitation due to an unknown error");
+      }
     }
   };
 
