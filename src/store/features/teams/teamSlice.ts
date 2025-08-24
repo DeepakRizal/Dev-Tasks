@@ -9,6 +9,7 @@ import {
   generateInviteCode,
   joinTeamByInviteCode,
   sendInvitation,
+  leaveTeam,
 } from "./teamThunks";
 
 interface TeamState {
@@ -47,7 +48,17 @@ const teamSlice = createSlice({
       })
       .addCase(fetchAllTeams.fulfilled, (state, action) => {
         state.loading = false;
-        state.teams = action.payload;
+        // Handle teams without owner field by setting first member as owner
+        const teamsWithOwner = action.payload.map((team) => {
+          if (!team.owner && team.members.length > 0) {
+            return {
+              ...team,
+              owner: team.members[0], // First member is the creator
+            };
+          }
+          return team;
+        });
+        state.teams = teamsWithOwner;
       })
       .addCase(fetchAllTeams.rejected, (state, action) => {
         state.loading = false;
@@ -59,7 +70,12 @@ const teamSlice = createSlice({
       })
       .addCase(createTeam.fulfilled, (state, action) => {
         state.loading = false;
-        state.teams.push(action.payload);
+        const newTeam = action.payload;
+        // Ensure owner field is set
+        if (!newTeam.owner && newTeam.members.length > 0) {
+          newTeam.owner = newTeam.members[0];
+        }
+        state.teams.push(newTeam);
       })
       .addCase(createTeam.rejected, (state, action) => {
         state.loading = false;
@@ -157,6 +173,26 @@ const teamSlice = createSlice({
         state.loading = false;
       })
       .addCase(sendInvitation.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(leaveTeam.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(leaveTeam.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedTeam = action.payload;
+
+        // Update the team in the state
+        const teamIndex = state.teams.findIndex(
+          (team) => team.id === updatedTeam.id
+        );
+        if (teamIndex !== -1) {
+          state.teams[teamIndex] = updatedTeam;
+        }
+      })
+      .addCase(leaveTeam.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

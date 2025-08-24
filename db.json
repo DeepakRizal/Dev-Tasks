@@ -18,6 +18,15 @@
   ],
   "boards": [
     {
+      "id": "board-1",
+      "projectId": "1",
+      "columnIds": [
+        "todo-1",
+        "inProgress-1",
+        "completed-1"
+      ]
+    },
+    {
       "id": "board-2",
       "projectId": "2",
       "columnIds": [
@@ -45,12 +54,39 @@
       ]
     },
     {
-      "id": "d92ae652-6750-4ead-950d-28aacb1705c1",
-      "projectId": "535d0afa-72c0-4009-96fb-e944bb56d17a",
+      "id": "board-5",
+      "projectId": "5",
       "columnIds": [
-        "todo-8f0ff217-3281-4ea2-85c4-e383d6dbcc70",
-        "inProgress-d2b8ae10-c5a8-4b2d-893f-554fa126af29",
-        "completed-3d4a3760-0381-4224-9291-5d95fab27000"
+        "todo-5",
+        "inProgress-5",
+        "completed-5"
+      ]
+    },
+    {
+      "id": "board-7",
+      "projectId": "7",
+      "columnIds": [
+        "todo-7",
+        "inProgress-7",
+        "completed-7"
+      ]
+    },
+    {
+      "id": "board-8",
+      "projectId": "8",
+      "columnIds": [
+        "todo-8",
+        "inProgress-8",
+        "completed-8"
+      ]
+    },
+    {
+      "id": "board-10",
+      "projectId": "10",
+      "columnIds": [
+        "todo-10",
+        "inProgress-10",
+        "completed-10"
       ]
     },
     {
@@ -74,10 +110,26 @@
   ],
   "projects": [
     {
+      "id": "1",
+      "name": "Project Alpha",
+      "emoji": "🚀",
+      "description": "Main project for Dev Warriors team",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "1",
+      "boardId": "board-1",
+      "archived": false
+    },
+    {
       "id": "2",
-      "members": [
-        "95b7"
-      ]
+      "name": "Project Beta",
+      "emoji": "⚡",
+      "description": "Secondary project for Dev Warriors team",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "1",
+      "boardId": "board-2",
+      "archived": false
     },
     {
       "id": "3",
@@ -102,10 +154,48 @@
       "archived": false
     },
     {
-      "id": "535d0afa-72c0-4009-96fb-e944bb56d17a",
-      "members": [
-        "95b7"
-      ]
+      "id": "5",
+      "name": "E-commerce Platform",
+      "emoji": "🛒",
+      "description": "Full-stack e-commerce solution with payment integration",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "1",
+      "boardId": "board-5",
+      "archived": false
+    },
+    {
+      "id": "7",
+      "name": "API Gateway",
+      "emoji": "🌐",
+      "description": "Centralized API management and routing system",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "2",
+      "boardId": "board-7",
+      "archived": false
+    },
+    {
+      "id": "8",
+      "name": "Data Analytics Dashboard",
+      "emoji": "📊",
+      "description": "Real-time analytics and reporting dashboard",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "2",
+      "boardId": "board-8",
+      "archived": false
+    },
+    {
+      "id": "10",
+      "name": "Security Framework",
+      "emoji": "🔒",
+      "description": "Comprehensive security and authentication framework",
+      "owner": "xyz",
+      "status": "Active",
+      "teamId": "2",
+      "boardId": "board-10",
+      "archived": false
     },
     {
       "id": "35066a5b-4d03-413a-b9a7-b1993fffa470",
@@ -115,7 +205,8 @@
       "status": "Active",
       "owner": "xyz",
       "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
-      "boardId": "0aaceae6-01ea-4743-bbdd-c62e19877739"
+      "boardId": "0aaceae6-01ea-4743-bbdd-c62e19877739",
+      "archived": false
     },
     {
       "id": "3e9d6921-b754-4661-9057-2fecf88216c3",
@@ -129,31 +220,499 @@
       "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17"
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Design login screen",
+      "description": "Create wireframes and mockups for the login interface",
+      "columnId": "todo-1"
+    },
+    {
+      "id": "task-2",
+      "title": "Create wireframes",
+      "description": "Design system wireframes for all main components",
+      "columnId": "todo-1"
+    },
+    {
+      "id": "task-3",
+      "title": "API integration",
+      "description": "Integrate REST APIs for user authentication and project management",
+      "columnId": "inProgress-1"
+    },
+    {
+      "id": "task-4",
+      "title": "Fix auth bug",
+      "description": "Resolve authentication token refresh issue",
+      "columnId": "inProgress-1"
+    },
+    {
+      "id": "task-5",
+      "title": "Landing page deployed",
+      "description": "Successfully deployed the main landing page",
+      "columnId": "completed-1"
+    },
+    {
+      "id": "task-6",
+      "title": "Setup repo & CI/CD",
+      "description": "Configured GitHub repository with automated deployment",
+      "columnId": "completed-1"
+    },
+    {
+      "id": "task-7",
+      "title": "Database schema design",
+      "description": "Design and implement database structure for Project Beta",
+      "columnId": "todo-2"
+    },
+    {
+      "id": "task-8",
+      "title": "User authentication system",
+      "description": "Implement secure user login and registration",
+      "columnId": "inProgress-2"
+    },
+    {
+      "id": "task-9",
+      "title": "CodeBuddy AI model training",
+      "description": "Train the AI model with programming patterns",
+      "columnId": "todo-3"
+    },
+    {
+      "id": "task-10",
+      "title": "API documentation",
+      "description": "Create comprehensive API documentation for developers",
+      "columnId": "inProgress-3"
+    },
+    {
+      "id": "task-11",
+      "title": "UI component library",
+      "description": "Build reusable React components for the toolkit",
+      "columnId": "todo-4"
+    },
+    {
+      "id": "task-12",
+      "title": "Design system guidelines",
+      "description": "Create design system documentation and guidelines",
+      "columnId": "completed-4"
+    },
+    {
+      "id": "task-13",
+      "title": "Project Gamma planning",
+      "description": "Plan the architecture and features for Project Gamma",
+      "columnId": "todo-8f0ff217-3281-4ea2-85c4-e383d6dbcc70"
+    },
+    {
+      "id": "task-14",
+      "title": "Test project setup",
+      "description": "Set up testing environment and initial tests",
+      "columnId": "inProgress-97c0bbb5-af9f-4b2a-8413-22aa8eb1c598"
+    },
+    {
+      "id": "task-15",
+      "title": "Natours website design",
+      "description": "Design the main layout and navigation for the travel website",
+      "columnId": "completed-a79eb73d-4787-47b9-aa51-e22c29b78e28"
+    },
+    {
+      "id": "task-16",
+      "title": "Payment gateway integration",
+      "description": "Integrate Stripe payment system for e-commerce platform",
+      "columnId": "todo-5"
+    },
+    {
+      "id": "task-17",
+      "title": "Shopping cart functionality",
+      "description": "Implement shopping cart with add/remove items",
+      "columnId": "inProgress-5"
+    },
+    {
+      "id": "task-18",
+      "title": "Order management system",
+      "description": "Build order tracking and management dashboard",
+      "columnId": "completed-5"
+    },
+    {
+      "id": "task-19",
+      "title": "Mobile app UI design",
+      "description": "Design mobile-first user interface for the app",
+      "columnId": "todo-6"
+    },
+    {
+      "id": "task-20",
+      "title": "Push notification setup",
+      "description": "Configure push notifications for mobile app",
+      "columnId": "inProgress-6"
+    },
+    {
+      "id": "task-21",
+      "title": "Offline functionality",
+      "description": "Implement offline data sync and caching",
+      "columnId": "completed-6"
+    },
+    {
+      "id": "task-22",
+      "title": "API rate limiting",
+      "description": "Implement rate limiting and throttling for API gateway",
+      "columnId": "todo-7"
+    },
+    {
+      "id": "task-23",
+      "title": "Load balancing",
+      "description": "Set up load balancer for high availability",
+      "columnId": "inProgress-7"
+    },
+    {
+      "id": "task-24",
+      "title": "Monitoring and logging",
+      "description": "Add comprehensive monitoring and logging system",
+      "columnId": "completed-7"
+    },
+    {
+      "id": "task-25",
+      "title": "Data visualization charts",
+      "description": "Create interactive charts and graphs for dashboard",
+      "columnId": "todo-8"
+    },
+    {
+      "id": "task-26",
+      "title": "Real-time updates",
+      "description": "Implement WebSocket for real-time data updates",
+      "columnId": "inProgress-8"
+    },
+    {
+      "id": "task-27",
+      "title": "Export functionality",
+      "description": "Add PDF and Excel export capabilities",
+      "columnId": "completed-8"
+    },
+    {
+      "id": "task-28",
+      "title": "Docker containerization",
+      "description": "Containerize applications with Docker",
+      "columnId": "todo-9"
+    },
+    {
+      "id": "task-29",
+      "title": "Kubernetes deployment",
+      "description": "Set up Kubernetes cluster for orchestration",
+      "columnId": "inProgress-9"
+    },
+    {
+      "id": "task-30",
+      "title": "Automated testing pipeline",
+      "description": "Integrate automated testing in CI/CD pipeline",
+      "columnId": "completed-9"
+    },
+    {
+      "id": "task-31",
+      "title": "OAuth 2.0 implementation",
+      "description": "Implement OAuth 2.0 for secure authentication",
+      "columnId": "todo-10"
+    },
+    {
+      "id": "task-32",
+      "title": "Two-factor authentication",
+      "description": "Add 2FA support for enhanced security",
+      "columnId": "inProgress-10"
+    },
+    {
+      "id": "task-33",
+      "title": "Security audit and testing",
+      "description": "Conduct comprehensive security audit",
+      "columnId": "completed-10"
+    }
+  ],
   "columns": [
     {
-      "id": "todo-cf4ca470-7fd0-40d9-b501-638b90820301",
-      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "id": "todo-1",
+      "boardId": "board-1",
       "title": "To Do",
       "emoji": "📝",
+      "taskIds": [
+        "task-1",
+        "task-2"
+      ]
+    },
+    {
+      "id": "inProgress-1",
+      "boardId": "board-1",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-3",
+        "task-4"
+      ]
+    },
+    {
+      "id": "completed-1",
+      "boardId": "board-1",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-5",
+        "task-6"
+      ]
+    },
+    {
+      "id": "todo-2",
+      "boardId": "board-2",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-7"
+      ]
+    },
+    {
+      "id": "inProgress-2",
+      "boardId": "board-2",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-8"
+      ]
+    },
+    {
+      "id": "completed-2",
+      "boardId": "board-2",
+      "title": "Completed",
+      "emoji": "✅",
       "taskIds": []
     },
     {
+      "id": "todo-3",
+      "boardId": "board-3",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-9"
+      ]
+    },
+    {
+      "id": "inProgress-3",
+      "boardId": "board-3",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-10"
+      ]
+    },
+    {
+      "id": "completed-3",
+      "boardId": "board-3",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": []
+    },
+    {
+      "id": "todo-4",
+      "boardId": "board-4",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-11"
+      ]
+    },
+    {
+      "id": "inProgress-4",
+      "boardId": "board-4",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": []
+    },
+    {
+      "id": "completed-4",
+      "boardId": "board-4",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-12"
+      ]
+    },
+    {
+      "id": "todo-5",
+      "boardId": "board-5",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-16"
+      ]
+    },
+    {
+      "id": "inProgress-5",
+      "boardId": "board-5",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-17"
+      ]
+    },
+    {
+      "id": "completed-5",
+      "boardId": "board-5",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-18"
+      ]
+    },
+    {
+      "id": "todo-6",
+      "boardId": null,
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-19"
+      ]
+    },
+    {
+      "id": "inProgress-6",
+      "boardId": null,
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-20"
+      ]
+    },
+    {
+      "id": "completed-6",
+      "boardId": null,
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-21"
+      ]
+    },
+    {
+      "id": "todo-7",
+      "boardId": "board-7",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-22"
+      ]
+    },
+    {
+      "id": "inProgress-7",
+      "boardId": "board-7",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-23"
+      ]
+    },
+    {
+      "id": "completed-7",
+      "boardId": "board-7",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-24"
+      ]
+    },
+    {
+      "id": "todo-8",
+      "boardId": "board-8",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-25"
+      ]
+    },
+    {
+      "id": "inProgress-8",
+      "boardId": "board-8",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-26"
+      ]
+    },
+    {
+      "id": "completed-8",
+      "boardId": "board-8",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-27"
+      ]
+    },
+    {
+      "id": "todo-9",
+      "boardId": null,
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-28"
+      ]
+    },
+    {
+      "id": "inProgress-9",
+      "boardId": null,
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-29"
+      ]
+    },
+    {
+      "id": "completed-9",
+      "boardId": null,
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-30"
+      ]
+    },
+    {
+      "id": "todo-10",
+      "boardId": "board-10",
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-31"
+      ]
+    },
+    {
+      "id": "inProgress-10",
+      "boardId": "board-10",
+      "title": "In Progress",
+      "emoji": "🔄",
+      "taskIds": [
+        "task-32"
+      ]
+    },
+    {
+      "id": "completed-10",
+      "boardId": "board-10",
+      "title": "Completed",
+      "emoji": "✅",
+      "taskIds": [
+        "task-33"
+      ]
+    },
+    {
+      "id": "todo-8f0ff217-3281-4ea2-85c4-e383d6dbcc70",
+      "boardId": null,
+      "title": "To Do",
+      "emoji": "📝",
+      "taskIds": [
+        "task-13"
+      ]
+    },
+    {
       "id": "inProgress-32d6c505-bbdf-4ff4-985f-9006c010b846",
-      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "boardId": null,
       "title": "In Progress",
       "emoji": "🔄",
       "taskIds": []
     },
     {
       "id": "completed-f4cf4598-c09d-43f8-817b-8502afb6dce4",
-      "boardId": "d92ae652-6750-4ead-950d-28aacb1705c1",
+      "boardId": null,
       "title": "Completed",
       "emoji": "✅",
       "taskIds": []
     },
     {
-      "id": "todo-3a6ac4c2-1b78-4d09-b505-0258165fa0fe",
+      "id": "todo-97c0bbb5-af9f-4b2a-8413-22aa8eb1c598",
       "boardId": "0aaceae6-01ea-4743-bbdd-c62e19877739",
       "title": "To Do",
       "emoji": "📝",
@@ -164,7 +723,9 @@
       "boardId": "0aaceae6-01ea-4743-bbdd-c62e19877739",
       "title": "In Progress",
       "emoji": "🔄",
-      "taskIds": []
+      "taskIds": [
+        "task-14"
+      ]
     },
     {
       "id": "completed-eb207259-9536-417d-be5c-c5e2204c23d1",
@@ -174,7 +735,7 @@
       "taskIds": []
     },
     {
-      "id": "todo-5ef2a829-c0ae-472c-b3e4-1a002f9b9626",
+      "id": "todo-a79eb73d-4787-47b9-aa51-e22c29b78e28",
       "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
       "title": "To Do",
       "emoji": "📝",
@@ -192,7 +753,9 @@
       "boardId": "dda02b01-cb03-4e5d-bb9e-02a9e0765c17",
       "title": "Completed",
       "emoji": "✅",
-      "taskIds": []
+      "taskIds": [
+        "task-15"
+      ]
     }
   ],
   "teams": [
@@ -200,17 +763,17 @@
       "id": "1",
       "name": "Dev Warriors",
       "emoji": "🧑‍💻",
+      "owner": "123",
       "members": [
-        "123",
-        "95b7"
+        "123"
       ],
       "projectIds": [
         "1",
         "2",
+        "5",
+        "6",
+        "9",
         "535d0afa-72c0-4009-96fb-e944bb56d17a",
-        "5fcd5da3-8c67-4231-abd0-e9462e403315",
-        "5207f040-85a4-48a6-abd3-941b2a3f248d",
-        "06b501c7-c311-4648-a34e-81fdd78c0544",
         "3e9d6921-b754-4661-9057-2fecf88216c3"
       ],
       "inviteCode": "FIA4S1-5918"
@@ -219,19 +782,24 @@
       "id": "2",
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
+      "owner": "123",
       "members": [
         "123",
         "95b7"
       ],
       "projectIds": [
         "3",
-        "4"
+        "4",
+        "7",
+        "8",
+        "10"
       ]
     },
     {
       "id": "733346fd-fe71-4531-940c-fbc42846a851",
       "name": "natours123",
       "emoji": "🖐️",
+      "owner": "123",
       "members": [
         "123",
         "95b7"
@@ -311,7 +879,8 @@
       "teamName": "natours123",
       "inviterName": "xyz",
       "inviteCode": null,
-      "createdAt": "2025-08-24T07:11:54.928Z"
+      "createdAt": "2025-08-24T07:11:54.928Z",
+      "status": "declined"
     }
   ]
 }

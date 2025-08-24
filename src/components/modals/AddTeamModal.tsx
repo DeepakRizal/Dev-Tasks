@@ -54,6 +54,7 @@ const AddTeamModal = ({
           id: uuid4(),
           name: form.name,
           emoji: form.emoji ? form.emoji : "🧑‍💻",
+          owner: currentUserId || "",
           members: currentUserId ? [currentUserId] : [],
           projectIds: [],
         };

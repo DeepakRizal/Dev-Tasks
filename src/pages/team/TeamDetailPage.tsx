@@ -2,13 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import type { AppDispatch, RootState } from "../../store/store";
 import ProjectCard from "../../components/project/ProjectCard";
-import { ArchiveRestore, Plus, SquarePen } from "lucide-react";
+import { ArchiveRestore, Plus, SquarePen, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddProjectModal from "../../components/modals/AddProjectModal";
 import Button from "../../components/ui/Button";
 import { getAllProjectsOfATeam } from "../../store/features/project/projectThunks";
 import ArchiveModal from "../../components/modals/ArchiveModal";
-import { fetchAllTeams } from "../../store/features/teams/teamThunks";
+import {
+  fetchAllTeams,
+  leaveTeam,
+} from "../../store/features/teams/teamThunks";
+import ModalFormWrapper from "../../utils/common/ModalFormWrapper";
+import { can } from "../../utils/permission";
 
 const TeamDetailPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,6 +23,7 @@ const TeamDetailPage = () => {
   const { teamId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [isArchiveOpen, setIsArchiveOpen] = useState(false);
+  const [isLeaveOpen, setIsLeaveOpen] = useState(false);
 
   const team = teams.find((team) => team.id === teamId);
 
@@ -107,13 +113,27 @@ const TeamDetailPage = () => {
                 onClick={handleSeeArchives}
               />
 
-              <Button
-                text="Edit Team Name"
-                icon={<SquarePen size={15} />}
-                size="sm"
-                variant="neutral"
-                onClick={handleEditName}
-              />
+              {/* Edit Team Name button - only shown to team owner */}
+              {currentUser?.id && can.deleteTeam(team, currentUser.id) && (
+                <Button
+                  text="Edit Team Name"
+                  icon={<SquarePen size={15} />}
+                  size="sm"
+                  variant="neutral"
+                  onClick={handleEditName}
+                />
+              )}
+
+              {/* Leave Team button - shown only to team members who joined (not owners) */}
+              {currentUser?.id && can.leaveTeam(team, currentUser.id) && (
+                <Button
+                  icon={<LogOut size={15} />}
+                  text="Leave Team"
+                  onClick={() => setIsLeaveOpen(true)}
+                  className="bg-orange-500 hover:bg-orange-600"
+                  size="sm"
+                />
+              )}
             </div>
           </div>
         </div>
@@ -202,6 +222,42 @@ const TeamDetailPage = () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
+      )}
+
+      {isLeaveOpen && (
+        <ModalFormWrapper
+          isOpen={isLeaveOpen}
+          title={`Leave Team "${team.name}"`}
+        >
+          <div className="px-5 py-3">
+            <p className="text-gray-300 mb-4">
+              Are you sure you want to leave this team? You will no longer have
+              access to this team's projects.
+            </p>
+            <div className="flex justify-end gap-3">
+              <Button
+                text="Cancel"
+                variant="neutral"
+                onClick={() => setIsLeaveOpen(false)}
+                size="sm"
+              />
+              <Button
+                text="Leave Team"
+                variant="primary"
+                className="bg-orange-500 hover:bg-orange-600"
+                onClick={() => {
+                  if (currentUser?.id) {
+                    dispatch(
+                      leaveTeam({ teamId: team.id, userId: currentUser.id })
+                    );
+                  }
+                  setIsLeaveOpen(false);
+                }}
+                size="sm"
+              />
+            </div>
+          </div>
+        </ModalFormWrapper>
       )}
     </div>
   );

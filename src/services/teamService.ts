@@ -99,6 +99,29 @@ const teamService = {
       inviteCode: team.inviteCode,
     };
   },
+
+  async leaveTeam(teamId: string, userId: string) {
+    // Get team details first
+    const teamRes = await api.get(`/teams/${teamId}`);
+    const team = teamRes.data as Team;
+
+    // Check if user is a member
+    if (!team.members.includes(userId)) {
+      throw new Error("You are not a member of this team");
+    }
+
+    // Remove user from team members
+    const updatedMembers = team.members.filter(
+      (memberId) => memberId !== userId
+    );
+
+    const res = await api.patch(`/teams/${teamId}`, {
+      members: updatedMembers,
+    });
+
+    const updatedTeam = res.data;
+    return updatedTeam;
+  },
 };
 
 export default teamService;

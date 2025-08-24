@@ -207,3 +207,21 @@ export const sendInvitation = createAsyncThunk<
     }
   }
 );
+
+export const leaveTeam = createAsyncThunk(
+  "team/leaveTeam",
+  async ({ teamId, userId }: { teamId: string; userId: string }, thunkApi) => {
+    try {
+      const updatedTeam = await teamService.leaveTeam(teamId, userId);
+      return updatedTeam;
+    } catch (error) {
+      let message = "Something went wrong!";
+      if (error instanceof Error) {
+        message = error.message;
+      } else if (typeof error === "string") {
+        message = error;
+      }
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);

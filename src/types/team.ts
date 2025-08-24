@@ -22,6 +22,7 @@ export interface Team {
   name: string;
   emoji?: string;
   inviteCode?: string;
+  owner: string; // ID of the user who created the team
   members: string[];
   projectIds: string[];
 }
