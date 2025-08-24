@@ -4,6 +4,7 @@ import teamReducer from "./features/teams/teamSlice";
 import projectReducer from "./features/project/projectSlice";
 import boardReducer from "./features/board/boardSlice";
 import taskReducer from "./features/tasks/taskSlice";
+import invitationReducer from "./features/invitation/invitationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     project: projectReducer,
     board: boardReducer,
     task: taskReducer,
+    invitation: invitationReducer,
   },
 });
 

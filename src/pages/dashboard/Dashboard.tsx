@@ -8,6 +8,7 @@ import { Plus, Users } from "lucide-react";
 import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 import { useRole } from "../../hooks/useRole";
 import JoinTeamModal from "../../components/modals/JoinTeamModal";
+import InvitationNotificationBadge from "../../components/notification/InvitationNotificationBadge";
 
 // Add state for join modal
 
@@ -41,6 +42,7 @@ const Dashboard = () => {
           </h1>
 
           <div className="flex gap-5">
+            <InvitationNotificationBadge />
             <Button
               text="View All Teams"
               size="sm"

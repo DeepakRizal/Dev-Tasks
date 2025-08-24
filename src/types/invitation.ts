@@ -3,4 +3,5 @@ export interface Invitation {
   teamId: string;
   teamName: string;
   inviterName: string;
+  inviteCode: string | null; // or string | undefined
 }

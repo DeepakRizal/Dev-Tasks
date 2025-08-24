@@ -1,6 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import teamService from "../../../services/teamService";
 import type { Team } from "../../../types/team";
+import invitationService from "../../../services/invitationService";
+import type { RootState } from "../../store";
+import type { Invitation } from "../../../types/invitation";
+
+interface SendInvitationArgs {
+  teamId: string;
+  email: string;
+  inviterName: string;
+}
+
+// Example of what teamService.sendInvitation returns
+interface SendInvitationResult {
+  teamName: string;
+  inviteCode: string;
+}
 
 export const fetchAllTeams = createAsyncThunk(
   "teams/fetchAll",
@@ -151,23 +166,36 @@ export const joinTeamByInviteCode = createAsyncThunk(
   }
 );
 
-export const sendInvitation = createAsyncThunk(
+export const sendInvitation = createAsyncThunk<
+  SendInvitationResult,
+  SendInvitationArgs,
+  { state: RootState }
+>(
   "team/sendInvitation",
-  async (
-    {
-      teamId,
-      email,
-      inviterName,
-    }: { teamId: string; email: string; inviterName: string },
-    thunkApi
-  ) => {
+  async ({ teamId, email, inviterName }: SendInvitationArgs, thunkApi) => {
     try {
       const result = await teamService.sendInvitation(
         teamId,
         email,
         inviterName
       );
-      return result;
+
+      // normalize inviteCode to avoid undefined
+      const safeInviteCode = result.inviteCode ?? "";
+
+      const invitationData: Omit<Invitation, "id"> = {
+        teamId,
+        teamName: result.teamName,
+        inviterName,
+        inviteCode: safeInviteCode || null,
+      };
+
+      await invitationService.createInvitation(invitationData);
+
+      return {
+        teamName: result.teamName,
+        inviteCode: safeInviteCode,
+      };
     } catch (error) {
       let message = "Something went wrong!";
       if (error instanceof Error) {

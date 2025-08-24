@@ -20,17 +20,29 @@
     {
       "id": "board-2",
       "projectId": "2",
-      "columnIds": ["todo-2", "inProgress-2", "completed-2"]
+      "columnIds": [
+        "todo-2",
+        "inProgress-2",
+        "completed-2"
+      ]
     },
     {
       "id": "board-3",
       "projectId": "3",
-      "columnIds": ["todo-3", "inProgress-3", "completed-3"]
+      "columnIds": [
+        "todo-3",
+        "inProgress-3",
+        "completed-3"
+      ]
     },
     {
       "id": "board-4",
       "projectId": "4",
-      "columnIds": ["todo-4", "inProgress-4", "completed-4"]
+      "columnIds": [
+        "todo-4",
+        "inProgress-4",
+        "completed-4"
+      ]
     },
     {
       "id": "d92ae652-6750-4ead-950d-28aacb1705c1",
@@ -63,7 +75,9 @@
   "projects": [
     {
       "id": "2",
-      "members": ["95b7"]
+      "members": [
+        "95b7"
+      ]
     },
     {
       "id": "3",
@@ -89,7 +103,9 @@
     },
     {
       "id": "535d0afa-72c0-4009-96fb-e944bb56d17a",
-      "members": ["95b7"]
+      "members": [
+        "95b7"
+      ]
     },
     {
       "id": "35066a5b-4d03-413a-b9a7-b1993fffa470",
@@ -184,7 +200,10 @@
       "id": "1",
       "name": "Dev Warriors",
       "emoji": "🧑‍💻",
-      "members": ["123", "95b7"],
+      "members": [
+        "123",
+        "95b7"
+      ],
       "projectIds": [
         "1",
         "2",
@@ -200,16 +219,45 @@
       "id": "2",
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
-      "members": ["123"],
-      "projectIds": ["3", "4"]
+      "members": [
+        "123"
+      ],
+      "projectIds": [
+        "3",
+        "4"
+      ]
     },
     {
       "id": "733346fd-fe71-4531-940c-fbc42846a851",
       "name": "natours123",
       "emoji": "🖐️",
-      "members": ["123"],
-      "projectIds": ["35066a5b-4d03-413a-b9a7-b1993fffa470"]
+      "members": [
+        "123",
+        "95b7"
+      ],
+      "projectIds": [
+        "35066a5b-4d03-413a-b9a7-b1993fffa470"
+      ]
     }
   ],
-  "invitations": []
+  "invitations": [
+    {
+      "id": "f9e8d597-42ab-47a3-9401-c32aafd9d739",
+      "teamId": "1",
+      "teamName": "Dev Warriors",
+      "inviterName": "xyz",
+      "inviteCode": "FIA4S1-5918",
+      "createdAt": "2025-08-24T06:02:33.390Z",
+      "status": "accepted"
+    },
+    {
+      "id": "13457542-fd73-43ad-809b-b709b8093f96",
+      "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
+      "teamName": "natours123",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T06:04:00.339Z",
+      "status": "accepted"
+    }
+  ]
 }
