@@ -25,7 +25,7 @@ const teamService = {
   },
 
   async updateTeam(data: Partial<Team>, teamId: string) {
-    const res = await api.put(`/teams/${teamId}`, data);
+    const res = await api.patch(`/teams/${teamId}`, data);
 
     const updatedData = res.data;
 
