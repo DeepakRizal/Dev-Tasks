@@ -9,6 +9,7 @@ import {
   respondToInvitation,
 } from "../../store/features/invitation/invitationThunks";
 import { fetchAllTeams } from "../../store/features/teams/teamThunks";
+import { toast } from "react-toastify";
 
 export interface Invitation {
   id: string;
@@ -53,7 +54,7 @@ const InvitationNotificationBadge = () => {
     );
     await dispatch(fetchAllTeams());
 
-    alert(`Successfully joined ${invitation.teamName}!`);
+    toast(`Successfully joined ${invitation.teamName}!`);
   };
 
   const handleDeclineInvitation = async (invitation: Invitation) => {
@@ -68,7 +69,7 @@ const InvitationNotificationBadge = () => {
       })
     );
 
-    alert(`Declined invitation to ${invitation.teamName}`);
+    toast(`Declined invitation to ${invitation.teamName}`);
   };
 
   if (!currentUser) return null;

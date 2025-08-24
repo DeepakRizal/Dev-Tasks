@@ -295,6 +295,23 @@
       "inviteCode": null,
       "createdAt": "2025-08-24T06:37:58.144Z",
       "status": "accepted"
+    },
+    {
+      "id": "e8f87505-b470-4791-ad7d-0910cd4ce125",
+      "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
+      "teamName": "natours123",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T07:08:44.499Z",
+      "status": "declined"
+    },
+    {
+      "id": "04cbc03b-d6c5-490c-8db4-824d25d643fe",
+      "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
+      "teamName": "natours123",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T07:11:54.928Z"
     }
   ]
 }

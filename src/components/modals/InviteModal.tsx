@@ -7,6 +7,7 @@ import {
   generateInviteCode,
   sendInvitation,
 } from "../../store/features/teams/teamThunks";
+import { toast } from "react-toastify";
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -47,7 +48,7 @@ const InviteModal = ({
           inviterName: currentUserName,
         })
       );
-      alert(`Invitation sent to ${email}!`);
+      toast(`Invitation sent to ${email}!`);
       setEmail("");
       setIsOpen(false);
     } catch (error) {

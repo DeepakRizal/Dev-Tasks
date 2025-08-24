@@ -4,6 +4,7 @@ import { X, Users } from "lucide-react";
 import type { AppDispatch, RootState } from "../../store/store";
 import { joinTeamByInviteCode } from "../../store/features/teams/teamThunks";
 import Button from "../ui/Button";
+import { toast } from "react-toastify";
 
 interface JoinTeamModalProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ const JoinTeamModal = ({ isOpen, setIsOpen }: JoinTeamModalProps) => {
         })
       ).unwrap();
 
-      alert("Successfully joined the team!");
+      toast("Successfully joined the team!");
       setIsOpen(false);
       setInviteCode("");
     } catch (error) {
