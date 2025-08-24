@@ -28,6 +28,7 @@ const teamService = {
     const res = await api.patch(`/teams/${teamId}`, data);
 
     const updatedData = res.data;
+    console.log(updatedData);
 
     return updatedData;
   },

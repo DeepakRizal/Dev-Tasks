@@ -8,6 +8,7 @@ import {
   fetchUserInvitations,
   respondToInvitation,
 } from "../../store/features/invitation/invitationThunks";
+import { fetchAllTeams } from "../../store/features/teams/teamThunks";
 
 export interface Invitation {
   id: string;
@@ -50,6 +51,7 @@ const InvitationNotificationBadge = () => {
         response: "accepted",
       })
     );
+    await dispatch(fetchAllTeams());
 
     alert(`Successfully joined ${invitation.teamName}!`);
   };

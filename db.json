@@ -220,7 +220,8 @@
       "name": "Code Crafters.",
       "emoji": "🧑‍💻",
       "members": [
-        "123"
+        "123",
+        "95b7"
       ],
       "projectIds": [
         "3",
@@ -257,6 +258,42 @@
       "inviterName": "xyz",
       "inviteCode": null,
       "createdAt": "2025-08-24T06:04:00.339Z",
+      "status": "accepted"
+    },
+    {
+      "id": "45b8684a-637a-4345-aba5-e35f3f47406c",
+      "teamId": "1",
+      "teamName": "Dev Warriors",
+      "inviterName": "xyz",
+      "inviteCode": "FIA4S1-5918",
+      "createdAt": "2025-08-24T06:12:03.986Z",
+      "status": "accepted"
+    },
+    {
+      "id": "4d08d404-1ea8-40be-854a-05eb63d5c64c",
+      "teamId": "2",
+      "teamName": "Code Crafters.",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T06:31:10.782Z",
+      "status": "declined"
+    },
+    {
+      "id": "a0a0ea4b-1abb-4952-938a-01ed07f6005d",
+      "teamId": "2",
+      "teamName": "Code Crafters.",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T06:32:57.480Z",
+      "status": "accepted"
+    },
+    {
+      "id": "1f223f5c-da6b-4691-bec6-61db1d046338",
+      "teamId": "733346fd-fe71-4531-940c-fbc42846a851",
+      "teamName": "natours123",
+      "inviterName": "xyz",
+      "inviteCode": null,
+      "createdAt": "2025-08-24T06:37:58.144Z",
       "status": "accepted"
     }
   ]

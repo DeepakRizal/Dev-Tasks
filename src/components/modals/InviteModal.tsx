@@ -49,6 +49,7 @@ const InviteModal = ({
       );
       alert(`Invitation sent to ${email}!`);
       setEmail("");
+      setIsOpen(false);
     } catch (error) {
       if (error instanceof Error) {
         alert(`Failed to send invitation: ${error.message}`);
